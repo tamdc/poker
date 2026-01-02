@@ -14,56 +14,116 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(51, 65, 85, 0.5);
+            --text-primary: #fff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #fbbf24;
+            --accent-hover: #f59e0b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --purple: #8b5cf6;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
             min-height: 100vh;
-            color: #fff;
-            padding: 16px;
-            padding-bottom: 100px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
         
-        .header {
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .nav-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .nav-home {
+            background: var(--bg-card);
+            border: none;
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 70px 16px 100px;
+        }
+        
+        /* Home Page */
+        .home-header {
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px 0 30px;
         }
         
-        .header h1 {
-            font-size: 24px;
+        .home-header h1 {
+            font-size: 28px;
             background: linear-gradient(90deg, #fbbf24, #f97316);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 8px;
         }
         
-        .header p {
-            color: #94a3b8;
+        .home-header p {
+            color: var(--text-secondary);
             font-size: 14px;
-            margin-top: 4px;
         }
         
+        /* Progress Card */
         .progress-card {
-            background: rgba(51, 65, 85, 0.5);
+            background: var(--bg-card);
             border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
             border: 1px solid #334155;
         }
         
         .progress-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
         .progress-header span {
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-size: 14px;
         }
         
         .progress-header strong {
-            color: #fbbf24;
+            color: var(--accent);
+            font-size: 16px;
         }
         
         .progress-bar {
@@ -80,58 +140,33 @@
             transition: width 0.5s ease;
         }
         
-        .current-session {
-            margin-top: 12px;
+        .current-lesson {
+            margin-top: 16px;
             padding: 12px;
             background: rgba(251, 191, 36, 0.1);
             border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 10px;
+            cursor: pointer;
         }
         
-        .current-session .label {
+        .current-lesson:active {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        
+        .current-lesson .label {
             font-size: 12px;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--text-secondary);
         }
         
-        .current-session .title {
-            color: #fbbf24;
+        .current-lesson .title {
+            color: var(--accent);
             font-weight: 600;
-            font-size: 14px;
             margin-top: 4px;
         }
         
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            background: #fbbf24;
-            color: #000;
-        }
-        
-        .tab:not(.active) {
-            background: #334155;
-            color: #94a3b8;
-        }
-        
-        .module {
-            background: rgba(51, 65, 85, 0.5);
+        /* Module Card */
+        .module-card {
+            background: var(--bg-card);
             border-radius: 16px;
             margin-bottom: 12px;
             border: 1px solid #334155;
@@ -144,7 +179,6 @@
             align-items: center;
             gap: 12px;
             cursor: pointer;
-            transition: background 0.3s;
         }
         
         .module-header:active {
@@ -152,8 +186,8 @@
         }
         
         .module-icon {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -164,384 +198,538 @@
         
         .module-info {
             flex: 1;
-            min-width: 0;
         }
         
-        .module-title {
-            font-size: 13px;
+        .module-info h3 {
+            font-size: 14px;
             font-weight: 700;
-            line-height: 1.3;
+            margin-bottom: 6px;
         }
         
-        .module-progress {
+        .module-meta {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 6px;
         }
         
-        .module-progress-bar {
-            height: 6px;
-            width: 80px;
+        .module-progress-mini {
+            width: 60px;
+            height: 4px;
             background: #334155;
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
         }
         
-        .module-progress-fill {
+        .module-progress-mini-fill {
             height: 100%;
-            border-radius: 3px;
-            transition: width 0.3s;
+            border-radius: 2px;
         }
         
-        .module-progress-text {
+        .module-meta span {
             font-size: 12px;
-            color: #94a3b8;
+            color: var(--text-muted);
         }
         
         .module-arrow {
-            color: #64748b;
+            color: var(--text-muted);
             font-size: 20px;
             transition: transform 0.3s;
         }
         
-        .module.expanded .module-arrow {
+        .module-card.expanded .module-arrow {
             transform: rotate(90deg);
         }
         
-        .sessions {
+        .module-lessons {
             display: none;
             border-top: 1px solid #334155;
         }
         
-        .module.expanded .sessions {
+        .module-card.expanded .module-lessons {
             display: block;
         }
         
-        .session {
+        .lesson-item {
             padding: 14px 16px;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
             display: flex;
+            align-items: center;
             gap: 12px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            cursor: pointer;
         }
         
-        .session:last-child {
+        .lesson-item:last-child {
             border-bottom: none;
         }
         
-        .session-check {
+        .lesson-item:active {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .lesson-check {
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            border: 2px solid #64748b;
+            border: 2px solid var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            font-size: 12px;
             flex-shrink: 0;
-            transition: all 0.3s;
-            font-size: 14px;
         }
         
-        .session-check.completed {
-            background: #22c55e;
-            border-color: #22c55e;
+        .lesson-check.completed {
+            background: var(--success);
+            border-color: var(--success);
             color: #fff;
         }
         
-        .session-content {
+        .lesson-info {
             flex: 1;
-            min-width: 0;
         }
         
-        .session-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .session-title {
+        .lesson-info h4 {
             font-size: 14px;
             font-weight: 500;
-            line-height: 1.4;
         }
         
-        .session-title.completed {
-            color: #64748b;
-            text-decoration: line-through;
+        .lesson-info span {
+            font-size: 12px;
+            color: var(--text-muted);
         }
         
-        .session-duration {
-            font-size: 11px;
-            color: #64748b;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .lesson-item.completed .lesson-info h4 {
+            color: var(--text-muted);
         }
         
-        .session-details {
+        /* Lesson Page */
+        .lesson-page {
             display: none;
-            margin-top: 12px;
         }
         
-        .session.expanded .session-details {
+        .lesson-page.active {
             display: block;
         }
         
-        .detail-section {
-            background: rgba(51, 65, 85, 0.4);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
+        .lesson-header {
+            margin-bottom: 24px;
         }
         
-        .detail-title {
-            font-size: 13px;
-            font-weight: 600;
+        .lesson-header .breadcrumb {
+            font-size: 12px;
+            color: var(--text-muted);
             margin-bottom: 8px;
+        }
+        
+        .lesson-header h1 {
+            font-size: 22px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .lesson-header .meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+        
+        .content-section h2 {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         
-        .detail-title.objectives { color: #fbbf24; }
-        .detail-title.keypoints { color: #22d3ee; }
-        .detail-title.exercises { color: #22c55e; }
-        .detail-title.resources { color: #a78bfa; }
-        
-        .detail-list {
-            list-style: none;
+        .content-section h3 {
+            font-size: 16px;
+            color: var(--info);
+            margin: 20px 0 12px;
         }
         
-        .detail-list li {
-            font-size: 13px;
-            color: #cbd5e1;
-            padding: 4px 0;
-            padding-left: 16px;
-            position: relative;
-            line-height: 1.5;
+        .content-section h4 {
+            font-size: 15px;
+            color: var(--purple);
+            margin: 16px 0 10px;
         }
         
-        .detail-list li::before {
-            content: attr(data-bullet);
-            position: absolute;
-            left: 0;
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-size: 15px;
         }
         
-        .resources-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+        .content-section ul, .content-section ol {
+            color: var(--text-secondary);
+            margin-left: 20px;
+            margin-bottom: 12px;
         }
         
-        .resource-tag {
-            background: rgba(167, 139, 250, 0.2);
-            color: #c4b5fd;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-        
-        .notes-section {
-            border-top: 1px solid #475569;
-            padding-top: 12px;
-            margin-top: 12px;
-        }
-        
-        .notes-title {
-            font-size: 13px;
-            color: #94a3b8;
+        .content-section li {
             margin-bottom: 8px;
+            font-size: 15px;
         }
         
-        .note-item {
-            background: rgba(71, 85, 105, 0.4);
-            padding: 10px;
+        .content-section strong {
+            color: var(--text-primary);
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box.info {
+            background: rgba(6, 182, 212, 0.1);
+            border-left-color: var(--info);
+        }
+        
+        .highlight-box.success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: var(--success);
+        }
+        
+        .highlight-box.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--danger);
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+        /* Hand Example */
+        .hand-example {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #334155;
+        }
+        
+        .hand-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .hand-setup {
+            background: #1e293b;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .hand-analysis {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .hand-analysis strong {
+            color: var(--success);
+        }
+        
+        .cards {
+            display: inline-flex;
+            gap: 4px;
+            font-weight: bold;
+        }
+        
+        .card-red { color: #ef4444; }
+        .card-black { color: #fff; }
+        
+        /* Table/Chart */
+        .chart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        
+        .chart-table th, .chart-table td {
+            padding: 10px 8px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .chart-table th {
+            background: #1e293b;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .chart-table td {
+            color: var(--text-secondary);
+        }
+        
+        .chart-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        /* Quiz Section */
+        .quiz-question {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+        .quiz-question h4 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .quiz-options {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
             gap: 8px;
         }
         
-        .note-text {
-            font-size: 13px;
-            color: #cbd5e1;
+        .quiz-option {
+            background: #334155;
+            border: 2px solid transparent;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--accent);
+            background: rgba(251, 191, 36, 0.1);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .quiz-explanation {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .quiz-explanation.show {
+            display: block;
+        }
+        
+        /* Navigation Buttons */
+        .lesson-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+        }
+        
+        .lesson-nav button {
             flex: 1;
-        }
-        
-        .note-date {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-        
-        .note-delete {
-            color: #ef4444;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 4px;
-        }
-        
-        .add-note-btn {
-            color: #fbbf24;
-            font-size: 13px;
-            cursor: pointer;
-            background: none;
+            padding: 14px;
             border: none;
-            padding: 4px 0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .note-input-wrap {
+        .btn-prev {
+            background: #334155;
+            color: var(--text-primary);
+        }
+        
+        .btn-next {
+            background: var(--accent);
+            color: #000;
+        }
+        
+        .btn-complete {
+            background: var(--success);
+            color: #fff;
+        }
+        
+        /* Notes Section */
+        .notes-section {
+            margin-top: 16px;
+        }
+        
+        .notes-section h3 {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .note-input-area {
             display: flex;
             gap: 8px;
-            margin-top: 8px;
         }
         
         .note-input {
             flex: 1;
-            background: #334155;
-            border: 1px solid #475569;
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 8px;
-            padding: 10px;
-            color: #fff;
+            padding: 12px;
+            color: var(--text-primary);
             font-size: 14px;
+            resize: none;
+            min-height: 80px;
         }
         
         .note-input:focus {
             outline: none;
-            border-color: #fbbf24;
+            border-color: var(--accent);
         }
         
-        .note-save {
-            background: #fbbf24;
+        .save-note-btn {
+            background: var(--accent);
             color: #000;
             border: none;
+            padding: 12px 20px;
             border-radius: 8px;
-            padding: 10px 16px;
             font-weight: 600;
             cursor: pointer;
+            align-self: flex-end;
         }
         
-        .note-cancel {
+        .saved-notes {
+            margin-top: 12px;
+        }
+        
+        .saved-note {
+            background: #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .saved-note p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .saved-note small {
+            color: var(--text-muted);
+            font-size: 11px;
+            display: block;
+            margin-top: 4px;
+        }
+        
+        .delete-note {
+            color: var(--danger);
             background: none;
             border: none;
-            color: #94a3b8;
-            padding: 10px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 12px;
+            padding: 4px;
         }
         
-        .all-notes {
-            display: none;
-        }
-        
-        .all-notes.active {
-            display: block;
-        }
-        
-        .course-content {
-            display: block;
-        }
-        
-        .course-content.hidden {
-            display: none;
-        }
-        
-        .empty-notes {
+        /* Coming Soon */
+        .coming-soon {
             text-align: center;
             padding: 40px 20px;
-            color: #64748b;
+            color: var(--text-muted);
         }
         
-        .note-session-title {
-            color: #fbbf24;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
+        .coming-soon h3 {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
         }
         
-        .note-group {
-            background: rgba(51, 65, 85, 0.4);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-        
-        .footer-tips {
-            margin-top: 30px;
-            text-align: center;
-            color: #64748b;
-            font-size: 12px;
-            line-height: 2;
-        }
-        
-        .reset-btn {
-            margin-top: 20px;
-            background: none;
-            border: 1px solid #475569;
-            color: #64748b;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .check-icon::after {
-            content: "✓";
-        }
-        
-        .completed-badge {
-            color: #22c55e;
-            margin-left: 6px;
-        }
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-accent { color: var(--accent); }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+        .text-info { color: var(--info); }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎯 POKER TOURNAMENT MASTERY</h1>
-        <p>Khóa học nâng cao cho người đã có căn bản</p>
-    </div>
-    
-    <div class="progress-card">
-        <div class="progress-header">
-            <span>Tiến độ tổng thể</span>
-            <strong id="totalProgress">0/32 buổi</strong>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <span class="nav-title">🎯 Poker Mastery</span>
+            <button class="nav-home" onclick="goHome()">📚 Menu</button>
         </div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="totalProgressBar" style="width: 0%"></div>
+    </nav>
+
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="homePage">
+            <div class="home-header">
+                <h1>🎯 POKER TOURNAMENT MASTERY</h1>
+                <p>Khóa học nâng cao cho người đã có căn bản</p>
+            </div>
+            
+            <div class="progress-card">
+                <div class="progress-header">
+                    <span>Tiến độ tổng thể</span>
+                    <strong id="totalProgressText">0/32 buổi</strong>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="totalProgressBar" style="width: 0%"></div>
+                </div>
+                <div class="current-lesson" id="currentLessonCard" onclick="goToCurrentLesson()">
+                    <div class="label">📖 Buổi tiếp theo:</div>
+                    <div class="title" id="currentLessonTitle">Buổi 1: Tournament vs Cash Game</div>
+                </div>
+            </div>
+            
+            <div id="modulesList"></div>
         </div>
-        <div class="current-session" id="currentSessionCard">
-            <div class="label">📖 Buổi tiếp theo:</div>
-            <div class="title" id="currentSessionTitle">Đang tải...</div>
-        </div>
+
+        <!-- LESSON PAGES -->
+        <div id="lessonPages"></div>
     </div>
-    
-    <div class="tabs">
-        <button class="tab active" onclick="showTab('course')">📚 Khóa học</button>
-        <button class="tab" onclick="showTab('notes')">📝 Ghi chú (<span id="totalNotes">0</span>)</button>
-    </div>
-    
-    <div class="course-content" id="courseContent"></div>
-    
-    <div class="all-notes" id="allNotes"></div>
-    
-    <div class="footer-tips">
-        <p>💡 Nhấn vào ⭕ để đánh dấu hoàn thành</p>
-        <p>📝 Thêm ghi chú để củng cố kiến thức</p>
-        <p>🔄 Tiến độ tự động lưu trên máy bạn</p>
-    </div>
-    
-    <button class="reset-btn" onclick="resetProgress()">🔄 Reset tiến độ</button>
 
     <script>
+        // Course Data với nội dung chi tiết
         const courseData = {
             modules: [
                 {
@@ -549,33 +737,806 @@
                     title: "MODULE 1: NỀN TẢNG TƯ DUY TOURNAMENT",
                     icon: "🧠",
                     color: "#8b5cf6",
-                    sessions: [
+                    description: "Hiểu sâu về sự khác biệt giữa Tournament và Cash Game",
+                    lessons: [
                         {
                             id: "1.1",
-                            title: "Buổi 1: Tournament vs Cash Game - Sự khác biệt cốt lõi",
-                            duration: "90 phút",
-                            objectives: ["Hiểu rõ ICM (Independent Chip Model) và tại sao nó thay đổi mọi quyết định", "Chip value không bằng dollar value - khái niệm survival equity", "Stack-to-blind ratio và ý nghĩa chiến lược", "Payout structure ảnh hưởng đến risk tolerance"],
-                            keyPoints: ["ICM pressure tăng dần khi gần bubble và final table", "Mỗi chip mất có giá trị hơn chip thắng (diminishing marginal utility)", "Tournament là marathon, không phải sprint"],
-                            exercises: ["Sử dụng ICMizer để phân tích 10 hand histories của bạn", "So sánh quyết định cash game vs tournament với cùng một hand"],
-                            resources: ["ICMizer", "PokerStove", "GTO Wizard"]
+                            title: "Tournament vs Cash Game - Sự khác biệt cốt lõi",
+                            duration: "45 phút đọc",
+                            content: `
+                                <div class="content-section">
+                                    <h2>📚 Giới thiệu</h2>
+                                    <p>Nếu bạn đã chơi cash game và muốn chuyển sang tournament, hoặc ngược lại, bạn sẽ sớm nhận ra rằng đây là <strong>hai trò chơi hoàn toàn khác nhau</strong> dù cùng dùng bộ bài và luật chơi cơ bản.</p>
+                                    
+                                    <p>Trong buổi học này, chúng ta sẽ đi sâu vào những khác biệt cốt lõi và quan trọng nhất là khái niệm <strong>ICM (Independent Chip Model)</strong> - nền tảng của mọi quyết định trong tournament.</p>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🎯 Sự khác biệt cơ bản</h2>
+                                    
+                                    <h3>1. Giá trị của Chip</h3>
+                                    <p>Đây là khác biệt quan trọng nhất cần hiểu:</p>
+                                    
+                                    <div class="highlight-box">
+                                        <p><strong>Cash Game:</strong> 1 chip = 1 đơn vị tiền thật. Bạn có 100 chip = bạn có $100. Mất 50 chip = mất $50. Đơn giản và trực tiếp.</p>
+                                    </div>
+                                    
+                                    <div class="highlight-box info">
+                                        <p><strong>Tournament:</strong> Chip <em>không</em> có giá trị tiền tệ trực tiếp. 100,000 chip không có nghĩa bạn sẽ thắng $100,000. Giá trị thực sự phụ thuộc vào <strong>vị trí xếp hạng cuối cùng</strong> của bạn.</p>
+                                    </div>
+                                    
+                                    <h3>2. Mục tiêu cuối cùng</h3>
+                                    <p><strong>Cash Game:</strong> Tối đa hóa số chip thắng được trong mỗi session. Bạn có thể rời bàn bất cứ lúc nào với số tiền mình có.</p>
+                                    
+                                    <p><strong>Tournament:</strong> Mục tiêu là <strong>survive (sống sót)</strong> đủ lâu để reach được các vị trí trả thưởng, và sau đó <strong>maximize payout</strong> bằng cách leo lên cao nhất có thể.</p>
+                                    
+                                    <h3>3. Khả năng rebuy</h3>
+                                    <p>Trong cash game, khi bạn bust, bạn có thể mua thêm chip và tiếp tục chơi. Đây là điều không thể trong hầu hết các tournament (trừ rebuy tournaments trong giai đoạn rebuy).</p>
+                                    
+                                    <div class="highlight-box danger">
+                                        <p><strong>Hệ quả quan trọng:</strong> Trong tournament, mỗi chip bạn mất đều đưa bạn gần hơn đến elimination. Không có cơ hội thứ hai. Điều này thay đổi hoàn toàn cách bạn đánh giá risk/reward.</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>💡 ICM - Independent Chip Model</h2>
+                                    
+                                    <p>ICM là công cụ toán học để quy đổi số chip trong tournament thành <strong>giá trị tiền thật dự kiến (tournament equity)</strong> dựa trên cấu trúc giải thưởng và stack sizes của tất cả players còn lại.</p>
+                                    
+                                    <h3>Tại sao ICM quan trọng?</h3>
+                                    <p>Hãy xem ví dụ sau để hiểu tại sao chip trong tournament không có giá trị tuyến tính:</p>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">📊 Ví dụ: Tournament 3 người còn lại</div>
+                                        <div class="hand-setup">
+Giải thưởng: 1st = $500, 2nd = $300, 3rd = $200
+Tổng prize pool: $1,000
+
+Scenario A: Tất cả 3 người có 10,000 chip
+→ ICM equity mỗi người: ~$333 (1/3 của $1,000)
+
+Scenario B: 
+- Player A: 20,000 chip (66.7% tổng chip)
+- Player B: 5,000 chip
+- Player C: 5,000 chip
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p>Trong Scenario B, Player A có 66.7% tổng chip. Nếu chip có giá trị tuyến tính, equity của A sẽ là $667.</p>
+                                            <p><strong>Nhưng thực tế ICM equity của A chỉ khoảng ~$420!</strong></p>
+                                            <p>Tại sao? Vì dù A có nhiều chip nhất, A vẫn chỉ có thể thắng tối đa $500 (giải nhất). Trong khi đó, A gần như chắc chắn ít nhất được $200 (giải ba).</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <h3>Quy tắc cốt lõi của ICM</h3>
+                                    
+                                    <div class="highlight-box success">
+                                        <p><strong>Chip bạn mất có giá trị hơn chip bạn thắng</strong></p>
+                                        <p>Đây gọi là "diminishing marginal utility" - giá trị biên giảm dần. Thắng thêm 10,000 chip không tăng equity nhiều bằng mức giảm khi mất 10,000 chip.</p>
+                                    </div>
+                                    
+                                    <h4>Implications thực tế:</h4>
+                                    <ul>
+                                        <li><strong>Tránh những pot lớn marginal:</strong> Một tình huống 50/50 có vẻ "breakeven" trong cash game lại là <strong>-EV trong tournament</strong> do ICM.</li>
+                                        <li><strong>Survival có giá trị:</strong> Đôi khi fold một hand "ok" để survive là quyết định đúng đắn.</li>
+                                        <li><strong>Big stack có leverage:</strong> Khi bạn có stack lớn, bạn có thể áp lực lên medium stacks vì họ sợ bust hơn bạn.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>📈 ICM Pressure qua các giai đoạn</h2>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>Giai đoạn</th>
+                                            <th>ICM Pressure</th>
+                                            <th>Chiến lược</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Early stage</td>
+                                            <td>Rất thấp</td>
+                                            <td>Gần như chơi như cash game, focus vào +EV spots</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Middle stage</td>
+                                            <td>Thấp - Trung bình</td>
+                                            <td>Bắt đầu consider stack preservation</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bubble</td>
+                                            <td>RẤT CAO</td>
+                                            <td>ICM quyết định hầu hết mọi decision</td>
+                                        </tr>
+                                        <tr>
+                                            <td>In the money</td>
+                                            <td>Cao</td>
+                                            <td>Pay jumps matter, ladder climbing</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Final table</td>
+                                            <td>Cực cao</td>
+                                            <td>Mỗi pay jump = significant money</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🃏 Hand Example: ICM trong thực tế</h2>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">Situation: Bubble của tournament $100 buy-in</div>
+                                        <div class="hand-setup">
+100 players started, 15 get paid
+16 players còn lại (1 người nữa bust = vào tiền)
+
+Bạn: 50,000 chips (average stack)
+Villain: 48,000 chips  
+Blinds: 1,000/2,000
+
+Bạn ở Button với: A♠ Q♥
+Villain (tay Nit) 3-bet all-in từ BB sau khi bạn open 4,500
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p><strong>Cash Game Thinking:</strong> AQo vs typical 3-bet range có khoảng 40-45% equity. Với pot odds này, có thể là call có lợi nhuận.</p>
+                                            
+                                            <p><strong>Tournament/ICM Thinking:</strong></p>
+                                            <ul>
+                                                <li>Nếu call và thua: Bạn BUST, ra về với $0</li>
+                                                <li>Nếu fold: Bạn vẫn có 45,500 chips, rất likely vào tiền (min cash ~$150)</li>
+                                                <li>Villain là Nit, range của họ khi 3-bet all-in bubble: QQ+, AK - range rất strong</li>
+                                            </ul>
+                                            
+                                            <p><strong class="text-success">Correct Play: FOLD</strong></p>
+                                            <p>Dù AQo là hand tốt, risking tournament life ở bubble với hand không dominant vs villain's range là sai lầm ICM nghiêm trọng. Survival equity của bạn quá cao để gamble.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>✍️ Bài tập tự luyện</h2>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 1: Trong tournament, tại sao một tình huống coinflip (50/50) thường là -EV?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">A. Vì dealer có lợi thế</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">B. Vì chip mất có giá trị hơn chip thắng (ICM)</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">C. Vì rake cao hơn</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. Vì đối thủ chơi tốt hơn</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Đúng!</strong> Do diminishing marginal utility trong ICM, việc double up không tăng gấp đôi tournament equity của bạn, nhưng bust thì mất 100% equity. Vì vậy, coinflip trong tournament thường có expected value âm.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 2: Khi nào ICM pressure cao nhất?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">A. Early stage khi deep stacked</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">B. Bubble và Final Table</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">C. Middle stage</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. ICM pressure luôn như nhau</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Chính xác!</strong> Bubble là lúc ICM pressure cao nhất vì sự khác biệt giữa bust (0$) và min-cash là rất lớn. Final table cũng có pressure cao vì mỗi pay jump đều significant.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>📝 Tóm tắt buổi học</h2>
+                                    <ul>
+                                        <li><strong>Chip tournament ≠ tiền thật:</strong> Giá trị chip phụ thuộc vào vị trí cuối cùng</li>
+                                        <li><strong>ICM:</strong> Công cụ quy đổi chip → tournament equity</li>
+                                        <li><strong>Chip mất > Chip thắng:</strong> Survival có giá trị trong tournament</li>
+                                        <li><strong>ICM pressure thay đổi:</strong> Thấp ở early stage, cao nhất ở bubble/FT</li>
+                                        <li><strong>Adjust decisions:</strong> Fold nhiều hands hơn khi ICM pressure cao</li>
+                                    </ul>
+                                </div>
+                            `
                         },
                         {
                             id: "1.2",
-                            title: "Buổi 2: Stack Size Dynamics - Làm chủ mọi độ sâu",
-                            duration: "90 phút",
-                            objectives: ["Deep stack play (100+ BB): Value extraction và pot control", "Mid stack (40-100 BB): Flexibility và setup plays", "Short stack (20-40 BB): Push/fold thresholds", "Micro stack (<20 BB): Survival mode và jam ranges"],
-                            keyPoints: ["Stack size quyết định playability của hands", "Adjust opening ranges theo effective stacks", "Position + stack size = power dynamic"],
-                            exercises: ["Tạo bảng opening ranges cho 4 stack depths khác nhau", "Review 20 hands và xác định stack dynamics sai lầm"],
-                            resources: ["ICMIZER Push/Fold Charts", "Nash Equilibrium Charts"]
+                            title: "Stack Size Dynamics - Làm chủ mọi độ sâu",
+                            duration: "50 phút đọc",
+                            content: `
+                                <div class="content-section">
+                                    <h2>📚 Giới thiệu</h2>
+                                    <p>Trong cash game, bạn thường chơi với stack 100BB+ và có thể top up bất cứ lúc nào. Trong tournament, stack của bạn liên tục thay đổi - từ deep stack 200BB+ xuống còn vài BB trước khi bust hoặc double up.</p>
+                                    
+                                    <p>Hiểu cách chơi ở <strong>mỗi độ sâu stack</strong> là kỹ năng thiết yếu của tournament player. Buổi học này sẽ cover chi tiết chiến lược cho 4 zones stack chính.</p>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🎯 Bốn Zones của Stack Size</h2>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>Zone</th>
+                                            <th>Stack Size</th>
+                                            <th>Đặc điểm chính</th>
+                                        </tr>
+                                        <tr>
+                                            <td><strong class="text-success">Deep Stack</strong></td>
+                                            <td>100+ BB</td>
+                                            <td>Full poker, implied odds matter</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong class="text-info">Mid Stack</strong></td>
+                                            <td>40-100 BB</td>
+                                            <td>Flexible, setup plays</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong class="text-accent">Short Stack</strong></td>
+                                            <td>20-40 BB</td>
+                                            <td>Limited postflop, reshove game</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong class="text-danger">Micro Stack</strong></td>
+                                            <td>&lt;20 BB</td>
+                                            <td>Push/fold mode</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>💚 Deep Stack Play (100+ BB)</h2>
+                                    
+                                    <p>Khi deep stacked, bạn có không gian để chơi "full poker" - nhiều đường phố, nhiều options, implied odds cao.</p>
+                                    
+                                    <h3>Nguyên tắc chính:</h3>
+                                    
+                                    <h4>1. Implied Odds trở nên quan trọng</h4>
+                                    <p>Với 150BB effective, bạn có thể call 3BB preflop với small pocket pairs để set mine vì potential payoff khi hit set là rất lớn.</p>
+                                    
+                                    <div class="highlight-box success">
+                                        <p><strong>Set Mining Rule:</strong> Cần khoảng 15:1 implied odds để profitable set mine. Với 150BB stack, bạn call 3BB, pot ~7BB. Nếu hit set (1/8 lần), bạn cần win average ~40BB để profitable. Với deep stacks, điều này rất khả thi.</p>
+                                    </div>
+                                    
+                                    <h4>2. Position càng quan trọng hơn</h4>
+                                    <p>Deep stacked, các pot có xu hướng lớn và nhiều đường phố. Position cho bạn:</p>
+                                    <ul>
+                                        <li>Thông tin từ action của opponent</li>
+                                        <li>Khả năng control pot size</li>
+                                        <li>Bluff opportunities tốt hơn</li>
+                                    </ul>
+                                    
+                                    <h4>3. Speculative Hands tăng giá trị</h4>
+                                    <p>Suited connectors như <span class="cards"><span class="card-red">7♥</span><span class="card-red">8♥</span></span>, suited aces như <span class="cards"><span class="card-red">A♥</span><span class="card-red">5♥</span></span> trở nên có giá trị vì:</p>
+                                    <ul>
+                                        <li>Có thể make straights, flushes - big hands</li>
+                                        <li>Implied odds để get paid khi hit</li>
+                                        <li>Dễ fold khi miss mà không mất nhiều</li>
+                                    </ul>
+                                    
+                                    <h4>4. Pot Control với medium hands</h4>
+                                    <p>Với one-pair hands, bạn thường không muốn build huge pot. Deep stacked, top pair có thể trở thành bluff catcher.</p>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">🃏 Ví dụ: Pot Control Deep</div>
+                                        <div class="hand-setup">
+Effective stacks: 120BB
+Hero BTN: A♠ K♦
+Villain BB
+
+Preflop: Hero raises 2.5BB, BB calls
+Flop (5.5BB): K♥ 8♣ 3♠
+BB checks, Hero bets 3BB, BB calls
+
+Turn (11.5BB): 6♦
+BB checks
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p><strong>Analysis:</strong> Bạn có top pair top kicker - hand rất strong. Nhưng deep stacked như này, nếu bạn bet turn, bet river và face raise ở bất kỳ street nào, bạn sẽ rất khó khăn.</p>
+                                            
+                                            <p><strong>Options:</strong></p>
+                                            <ul>
+                                                <li><strong>Check back turn:</strong> Control pot, induce bluffs river từ missed draws</li>
+                                                <li><strong>Small bet turn (~4BB):</strong> Get value từ worse Kx, but keep pot manageable</li>
+                                            </ul>
+                                            
+                                            <p><strong>Không nên:</strong> Bet lớn turn rồi bet lớn river. Nếu bị call 3 streets, bạn thường behind vs 2-pair, sets.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>💙 Mid Stack Play (40-100 BB)</h2>
+                                    
+                                    <p>Đây là zone phổ biến nhất trong tournament. Bạn có đủ chips để chơi poker nhưng cần careful với commitment decisions.</p>
+                                    
+                                    <h3>Key Concepts:</h3>
+                                    
+                                    <h4>1. SPR (Stack-to-Pot Ratio)</h4>
+                                    <p>SPR = Effective Stack / Pot Size sau flop</p>
+                                    
+                                    <div class="highlight-box info">
+                                        <p><strong>SPR Guide:</strong></p>
+                                        <p>• SPR < 4: Commit với top pair+</p>
+                                        <p>• SPR 4-10: Need better than top pair to stack off</p>
+                                        <p>• SPR > 10: Need very strong hands to commit</p>
+                                    </div>
+                                    
+                                    <h4>2. Speculative hands giảm giá trị</h4>
+                                    <p>Với 60BB, implied odds không còn đủ để profitable set mine hay chase straights/flushes trong nhiều situations.</p>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">📊 Set Mining Math với 60BB</div>
+                                        <div class="hand-setup">
+Stack: 60BB
+Villain opens 2.5BB, you call 2.5BB với 55
+Pot on flop: ~6BB
+Your remaining stack: 57.5BB
+
+You hit set 1/8 times (~12.5%)
+To breakeven: 2.5BB × 8 = 20BB needed
+So you need to win ~20BB+ when you hit set
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p>Với 60BB, việc extract 20BB+ khi hit set là possible nhưng không guaranteed như deep stacked. Bạn cần:</p>
+                                            <ul>
+                                                <li>Opponent có strong hand willing to stack off</li>
+                                                <li>Board texture cho phép value betting</li>
+                                            </ul>
+                                            <p><strong>Kết luận:</strong> Set mining vẫn ok với 60BB nhưng cần selectivity hơn - prefer position, prefer fishy opponents.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4>3. 3-bet or Fold thay vì Flat</h4>
+                                    <p>Với mid stacks, flat calling tạo ra awkward SPR situations. Better to:</p>
+                                    <ul>
+                                        <li><strong>3-bet:</strong> Build pot với strong hands, fold equity với bluffs</li>
+                                        <li><strong>Fold:</strong> Hands không đủ strong để 3-bet</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🟡 Short Stack Play (20-40 BB)</h2>
+                                    
+                                    <p>Khi stack xuống 20-40BB, poker trở nên đơn giản hơn nhưng đòi hỏi precision cao. Sai lầm nhỏ = bust nhanh.</p>
+                                    
+                                    <h3>The Reshove Game</h3>
+                                    
+                                    <p>Với 25-35BB, chiến lược chính là <strong>reshove (3-bet all-in)</strong> thay vì 3-bet nhỏ.</p>
+                                    
+                                    <div class="highlight-box">
+                                        <p><strong>Tại sao reshove?</strong></p>
+                                        <p>Với 30BB, nếu 3-bet to 8BB, bạn committed ~27% stack. Khi facing 4-bet hoặc check-raise flop, bạn phải fold và mất chips significant, hoặc call với bad odds.</p>
+                                        <p>Reshove all-in đơn giản hóa: hoặc win pot ngay (fold equity), hoặc đi đến showdown với full equity realization.</p>
+                                    </div>
+                                    
+                                    <h4>Reshove Ranges (vs late position open)</h4>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>Stack Size</th>
+                                            <th>Reshove Range vs BTN open</th>
+                                        </tr>
+                                        <tr>
+                                            <td>35BB</td>
+                                            <td>TT+, AQs+, AKo</td>
+                                        </tr>
+                                        <tr>
+                                            <td>30BB</td>
+                                            <td>99+, AJs+, AQo+, KQs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>25BB</td>
+                                            <td>88+, ATs+, AJo+, KQs, KJs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20BB</td>
+                                            <td>77+, A9s+, ATo+, KTs+, KQo, QJs</td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <p><em>Lưu ý: Ranges này vs typical BTN opening range. Điều chỉnh vs tighter/looser opponents.</em></p>
+                                    
+                                    <h4>Open-Raising Short Stacked</h4>
+                                    <p>Với 25-40BB, bạn vẫn có thể open-raise (2-2.5BB) với intent to fold vs 3-bet hoặc call/reshove vs 3-bet depending on hand strength.</p>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🔴 Micro Stack Play (<20 BB)</h2>
+                                    
+                                    <p>Dưới 20BB, poker trở thành game <strong>push/fold</strong>. Không còn room cho postflop play phức tạp.</p>
+                                    
+                                    <h3>Push/Fold Fundamentals</h3>
+                                    
+                                    <h4>Khi nào Push?</h4>
+                                    <ul>
+                                        <li><strong>First in:</strong> Khi folded to you, push với any playable hand</li>
+                                        <li><strong>Against opens:</strong> Push over opens với strong hands</li>
+                                        <li><strong>Blinds worth stealing:</strong> Khi antes kick in, stealing blinds significant</li>
+                                    </ul>
+                                    
+                                    <h4>Nash Equilibrium Ranges</h4>
+                                    <p>Nash ranges cho biết push/call ranges "unexploitable" về mặt toán học.</p>
+                                    
+                                    <div class="highlight-box info">
+                                        <p><strong>Quick Reference - Push Range từ BTN với 15BB:</strong></p>
+                                        <p>Any pair, Any Ace, K2s+, K5o+, Q6s+, Q9o+, J7s+, JTo, T8s+, 97s+, 87s, 76s</p>
+                                        <p>Đây là ~40% hands - rất wide!</p>
+                                    </div>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">🃏 Push/Fold Decision</div>
+                                        <div class="hand-setup">
+Blinds: 500/1000 với 100 ante
+Your stack: 12,000 (12BB)
+Position: Button
+Hand: Q♠ 9♣
+Action: Folded to you
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p><strong>Analysis:</strong></p>
+                                            <ul>
+                                                <li>Pot đã có: 1,500 + (100 × ~6) = ~2,100</li>
+                                                <li>Risk: 12,000 để win 2,100 = cần ~15% fold equity + equity khi called</li>
+                                                <li>Q9o vs typical calling range có ~35-40% equity</li>
+                                            </ul>
+                                            <p><strong class="text-success">Decision: PUSH</strong></p>
+                                            <p>Với 12BB từ BTN, Q9o là clear push. Đủ fold equity từ blinds, và khi called vẫn có live cards.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <h4>Đừng "bảo tồn" stack quá lâu</h4>
+                                    
+                                    <div class="highlight-box danger">
+                                        <p><strong>Sai lầm phổ biến:</strong> Nhiều người với 12-15BB cứ chờ "hand tốt" để push. Họ blind down xuống 5-6BB và mất hết fold equity.</p>
+                                        <p><strong>Truth:</strong> Với 15BB, bạn còn leverage. Với 5BB, bạn desperate. Push khi còn fold equity!</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>✍️ Bài tập</h2>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 1: Bạn có 55BB. Villain open 2.5BB từ CO, bạn ở BTN với JJ. Best play?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">A. Call và see flop</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">B. 3-bet to ~7-8BB</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">C. 3-bet all-in 55BB</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. Fold</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Đúng!</strong> Với 55BB, JJ là clear 3-bet for value. 3-bet to ~7-8BB là sizing tốt. All-in quá lớn (chỉ get called by better), flat để SPR cao và khó play postflop với JJ.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 2: Bạn có 18BB ở SB với A5s. BTN opens 2.2BB. Best play?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">A. Call</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">B. 3-bet to 6BB</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">C. 3-bet all-in</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. Fold</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Chính xác!</strong> Với 18BB, A5s là perfect reshove hand vs BTN. Quá shallow để 3-bet small (committed anyway), và A5s có equity tốt vs BTN calling range + blockers với Ace.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>📝 Tóm tắt</h2>
+                                    <ul>
+                                        <li><strong>Deep (100+BB):</strong> Full poker, implied odds, speculative hands có giá trị</li>
+                                        <li><strong>Mid (40-100BB):</strong> SPR matters, prefer 3-bet or fold vs flat</li>
+                                        <li><strong>Short (20-40BB):</strong> Reshove game, simplify decisions</li>
+                                        <li><strong>Micro (<20BB):</strong> Push/fold, don't wait too long</li>
+                                        <li><strong>Key:</strong> Biết mình ở zone nào và adjust strategy accordingly</li>
+                                    </ul>
+                                </div>
+                            `
                         },
                         {
                             id: "1.3",
-                            title: "Buổi 3: Tournament Structure Reading",
-                            duration: "75 phút",
-                            objectives: ["Đọc hiểu structure sheet - những gì quan trọng", "Pace of play và average stack projection", "Late registration strategy", "Reentry/Rebuy considerations"],
-                            keyPoints: ["Structure tốt vs structure xấu - ROI implications", "Tính toán khi nào stack trở nên critical", "Planning ahead cho bubble và final table"],
-                            exercises: ["Phân tích 5 tournament structures khác nhau", "Tạo game plan cho từng structure"],
-                            resources: ["Tournament structure comparison sheets"]
+                            title: "Tournament Structure - Đọc hiểu và Planning",
+                            duration: "40 phút đọc",
+                            content: `
+                                <div class="content-section">
+                                    <h2>📚 Giới thiệu</h2>
+                                    <p>Không phải tournament nào cũng giống nhau. Cấu trúc (structure) của tournament quyết định:</p>
+                                    <ul>
+                                        <li>Bạn có bao nhiêu thời gian để chơi "real poker"</li>
+                                        <li>Khi nào stack của bạn trở nên critical</li>
+                                        <li>Variance level của tournament</li>
+                                        <li>Skill edge bạn có thể exploit</li>
+                                    </ul>
+                                    
+                                    <p>Buổi học này sẽ dạy bạn cách đọc structure sheet và plan accordingly.</p>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🎯 Các yếu tố của Tournament Structure</h2>
+                                    
+                                    <h3>1. Starting Stack và Blind Levels</h3>
+                                    <p>Hai con số quan trọng nhất:</p>
+                                    <ul>
+                                        <li><strong>Starting stack:</strong> Số chips bạn bắt đầu</li>
+                                        <li><strong>Starting blinds:</strong> Mức blind đầu tiên</li>
+                                    </ul>
+                                    
+                                    <div class="highlight-box">
+                                        <p><strong>Starting Stack Ratio = Starting Stack ÷ Big Blind đầu tiên</strong></p>
+                                        <p>Ví dụ: 10,000 chips với blinds 25/50 = 200BB starting</p>
+                                    </div>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>Starting Ratio</th>
+                                            <th>Đánh giá</th>
+                                            <th>Đặc điểm</th>
+                                        </tr>
+                                        <tr>
+                                            <td>200BB+</td>
+                                            <td class="text-success">Excellent</td>
+                                            <td>Deep play, skill edge cao</td>
+                                        </tr>
+                                        <tr>
+                                            <td>100-200BB</td>
+                                            <td class="text-info">Good</td>
+                                            <td>Standard, balanced</td>
+                                        </tr>
+                                        <tr>
+                                            <td>50-100BB</td>
+                                            <td class="text-accent">Average</td>
+                                            <td>Limited deep play</td>
+                                        </tr>
+                                        <tr>
+                                            <td><50BB</td>
+                                            <td class="text-danger">Poor</td>
+                                            <td>Turbo style, high variance</td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <h3>2. Level Duration</h3>
+                                    <p>Thời gian mỗi level ảnh hưởng trực tiếp đến pace of play.</p>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>Level Duration</th>
+                                            <th>Loại Tournament</th>
+                                            <th>Hands/Level (approx)</th>
+                                        </tr>
+                                        <tr>
+                                            <td>60+ phút</td>
+                                            <td>Deep structure (WSOP, WPT)</td>
+                                            <td>~30-35 hands</td>
+                                        </tr>
+                                        <tr>
+                                            <td>30-45 phút</td>
+                                            <td>Standard</td>
+                                            <td>~20-25 hands</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15-20 phút</td>
+                                            <td>Turbo</td>
+                                            <td>~10-12 hands</td>
+                                        </tr>
+                                        <tr>
+                                            <td><10 phút</td>
+                                            <td>Hyper-turbo</td>
+                                            <td>~5-6 hands</td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <h3>3. Blind Increase Rate</h3>
+                                    <p>Blinds tăng bao nhiêu % mỗi level?</p>
+                                    
+                                    <div class="highlight-box info">
+                                        <p><strong>Sustainable rate:</strong> 20-30% increase mỗi level</p>
+                                        <p><strong>Aggressive rate:</strong> 50%+ increase (turbo structures)</p>
+                                        <p>Ví dụ: 25/50 → 50/100 = 100% increase (quá nhanh)</p>
+                                        <p>Ví dụ: 100/200 → 125/250 = 25% increase (reasonable)</p>
+                                    </div>
+                                    
+                                    <h3>4. Antes</h3>
+                                    <p>Antes là chips bắt buộc đóng mỗi hand (ngoài blinds). Khi antes kick in, pot trở nên valuable hơn và steal game intensify.</p>
+                                    
+                                    <p><strong>Ante formats:</strong></p>
+                                    <ul>
+                                        <li><strong>Classic ante:</strong> Mỗi player đóng (ví dụ: 10% của BB)</li>
+                                        <li><strong>Big blind ante:</strong> BB đóng ante cho cả bàn (phổ biến hiện nay)</li>
+                                    </ul>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">📊 Pot Size với và không có Antes</div>
+                                        <div class="hand-setup">
+Blinds: 500/1000
+
+Không có ante:
+- Dead money: 1,500
+
+Với 1000 BB ante (9-handed):
+- Dead money: 1,500 + 1,000 = 2,500
+
+Với classic 100 ante × 9:
+- Dead money: 1,500 + 900 = 2,400
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p>Khi antes kick in, pot preflop tăng ~60%+. Điều này có nghĩa:</p>
+                                            <ul>
+                                                <li>Stealing blinds trở nên profitable hơn nhiều</li>
+                                                <li>Defending blinds cũng cần wider range</li>
+                                                <li>Short stacks có thêm incentive để push</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>📈 Tính toán Critical Stack Points</h2>
+                                    
+                                    <p>Với mỗi tournament, bạn nên tính trước khi nào stack của mình trở nên "critical" nếu không accumulate chips.</p>
+                                    
+                                    <h3>Average Stack Projection</h3>
+                                    
+                                    <div class="highlight-box">
+                                        <p><strong>Công thức:</strong></p>
+                                        <p>Average Stack = (Total Chips) ÷ (Players Remaining)</p>
+                                        <p>Total Chips = Starting Stack × Total Entries</p>
+                                    </div>
+                                    
+                                    <div class="hand-example">
+                                        <div class="hand-title">📊 Ví dụ: Planning cho MTT $100</div>
+                                        <div class="hand-setup">
+Tournament: $100 buy-in, 500 entries
+Starting stack: 15,000
+Blinds start: 25/50 (300BB)
+Levels: 20 phút
+
+Total chips: 15,000 × 500 = 7,500,000
+
+At Level 8 (200/400/400 ante):
+- Estimate ~350 players remain
+- Avg stack: 7,500,000 ÷ 350 = ~21,400 (~53BB)
+
+At Level 12 (500/1000/1000 ante) - near bubble:
+- Estimate ~80 players remain
+- Avg stack: 7,500,000 ÷ 80 = ~93,750 (~94BB)
+                                        </div>
+                                        <div class="hand-analysis">
+                                            <p><strong>Planning insights:</strong></p>
+                                            <ul>
+                                                <li>Nếu maintain starting stack đến Level 8, bạn sẽ below average (~35BB vs 53BB avg)</li>
+                                                <li>Cần accumulate chips trong 6-8 levels đầu</li>
+                                                <li>Target: Above average going into antes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <h3>M-Ratio (Harrington's M)</h3>
+                                    <p>M-ratio cho biết bạn có thể survive bao nhiêu orbits với current stack.</p>
+                                    
+                                    <div class="highlight-box info">
+                                        <p><strong>M = Stack ÷ (SB + BB + Total Antes)</strong></p>
+                                        <p>Ví dụ: 30,000 stack với blinds 500/1000 và 1000 ante</p>
+                                        <p>M = 30,000 ÷ (500 + 1000 + 1000) = 12</p>
+                                        <p>→ Bạn có thể survive 12 orbits nếu không play hand nào</p>
+                                    </div>
+                                    
+                                    <table class="chart-table">
+                                        <tr>
+                                            <th>M-Ratio</th>
+                                            <th>Zone</th>
+                                            <th>Strategy</th>
+                                        </tr>
+                                        <tr>
+                                            <td>M > 20</td>
+                                            <td class="text-success">Green Zone</td>
+                                            <td>Full arsenal, all plays available</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M 10-20</td>
+                                            <td class="text-accent">Yellow Zone</td>
+                                            <td>Tighten up, pick spots carefully</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M 5-10</td>
+                                            <td class="text-danger">Orange Zone</td>
+                                            <td>Push/fold mode approaching</td>
+                                        </tr>
+                                        <tr>
+                                            <td>M < 5</td>
+                                            <td class="text-danger">Red Zone</td>
+                                            <td>Desperate, push wide</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🎰 Late Registration Strategy</h2>
+                                    
+                                    <p>Nhiều tournaments cho phép late registration (reg muộn). Có nên dùng?</p>
+                                    
+                                    <h3>Pros của Late Reg:</h3>
+                                    <ul>
+                                        <li>Skip early levels với shallow skill edge</li>
+                                        <li>Bắt đầu với stack reasonable so với blinds</li>
+                                        <li>Biết được field size trước khi commit</li>
+                                        <li>Save time nếu busy</li>
+                                    </ul>
+                                    
+                                    <h3>Cons của Late Reg:</h3>
+                                    <ul>
+                                        <li>Miss opportunity accumulate chips early</li>
+                                        <li>Bắt đầu below average stack</li>
+                                        <li>Less time để gather reads</li>
+                                        <li>Có thể vào với disadvantage stack</li>
+                                    </ul>
+                                    
+                                    <div class="highlight-box success">
+                                        <p><strong>Rule of thumb:</strong></p>
+                                        <p>Late reg còn ok khi starting stack vẫn ≥ 30BB. Dưới mức đó, bạn bắt đầu ở disadvantage quá lớn.</p>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>🔄 Rebuy/Re-entry Considerations</h2>
+                                    
+                                    <h3>Rebuy Tournament</h3>
+                                    <p>Cho phép mua thêm chips khi bust hoặc dưới starting stack trong rebuy period.</p>
+                                    
+                                    <p><strong>Strategy adjustments:</strong></p>
+                                    <ul>
+                                        <li>Early levels: Có thể loosen up vì có rebuy safety net</li>
+                                        <li>Double rebuy (khi bust): Usually +EV với good structure</li>
+                                        <li>Add-on cuối rebuy period: Thường +EV, take it</li>
+                                    </ul>
+                                    
+                                    <h3>Re-entry Tournament</h3>
+                                    <p>Khi bust, có thể buy-in lại như player mới.</p>
+                                    
+                                    <p><strong>Considerations:</strong></p>
+                                    <ul>
+                                        <li>Re-enter nếu còn trong late reg period với stack reasonable</li>
+                                        <li>Consider bankroll - mỗi re-entry = thêm buy-in</li>
+                                        <li>Tính tổng investment khi evaluate ROI</li>
+                                    </ul>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>✍️ Bài tập</h2>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 1: Tournament với 10,000 starting stack và 50/100 blinds. Starting ratio là?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">A. 100BB - Good structure</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">B. 50BB - Average structure</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">C. 200BB - Excellent structure</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. 25BB - Poor structure</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Đúng!</strong> 10,000 ÷ 100 = 100BB. Đây là good structure cho phép một số deep play early và reasonable skill expression.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quiz-question">
+                                        <h4>Câu 2: Bạn có M = 8. Đây thuộc zone nào và strategy là gì?</h4>
+                                        <div class="quiz-options">
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">A. Green Zone - play full range</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">B. Yellow Zone - tighten slightly</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, true)">C. Orange Zone - push/fold mode approaching</div>
+                                            <div class="quiz-option" onclick="checkAnswer(this, false)">D. Red Zone - push any two cards</div>
+                                        </div>
+                                        <div class="quiz-explanation">
+                                            <strong>Chính xác!</strong> M = 5-10 là Orange Zone. Bạn cần start looking for push/fold spots và không thể afford flat calling hay small 3-bets.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-section">
+                                    <h2>📝 Tóm tắt</h2>
+                                    <ul>
+                                        <li><strong>Starting ratio:</strong> Stack ÷ BB đầu tiên, target 100BB+</li>
+                                        <li><strong>Level duration:</strong> 30+ phút cho standard play</li>
+                                        <li><strong>Antes:</strong> Tăng pot ~60%, intensify steal game</li>
+                                        <li><strong>M-ratio:</strong> Đo survive capacity, adjust strategy theo zone</li>
+                                        <li><strong>Late reg:</strong> OK nếu starting stack ≥ 30BB</li>
+                                        <li><strong>Planning:</strong> Tính trước critical points của tournament</li>
+                                    </ul>
+                                </div>
+                            `
                         }
                     ]
                 },
@@ -584,34 +1545,11 @@
                     title: "MODULE 2: GIAI ĐOẠN ĐẦU TOURNAMENT",
                     icon: "🔥",
                     color: "#f97316",
-                    sessions: [
-                        {
-                            id: "2.1",
-                            title: "Buổi 4: Early Stage Fundamentals - Building Foundation",
-                            duration: "90 phút",
-                            objectives: ["Tight-aggressive approach với deep stacks", "Table selection và seat selection", "Building image và gathering information", "Avoiding unnecessary variance"],
-                            keyPoints: ["Không có giải thưởng cho early chip lead", "Protect stack, spot opportunities", "Information > chips ở giai đoạn này"],
-                            exercises: ["Track 50 hands early stage - phân tích decisions", "Ghi chú về 5+ opponents tại table"],
-                            resources: ["HUD setup guide", "Note-taking templates"]
-                        },
-                        {
-                            id: "2.2",
-                            title: "Buổi 5: Exploitative Play - Nhận diện & Khai thác",
-                            duration: "90 phút",
-                            objectives: ["Nhận diện player types trong 30 phút đầu", "Exploiting tight players - steal wider, bet less for value", "Exploiting loose players - tighten up, value bet thinner", "Adjustments cho recreational players"],
-                            keyPoints: ["Profiles: Nit, TAG, LAG, Fish, Maniac", "Khai thác betting patterns cụ thể", "Counter-exploitation awareness"],
-                            exercises: ["Classify 20 players từ database theo type", "Viết exploitation plan cho từng type"],
-                            resources: ["Player profiling worksheet"]
-                        },
-                        {
-                            id: "2.3",
-                            title: "Buổi 6: Postflop Mastery - Deep Stack Scenarios",
-                            duration: "120 phút",
-                            objectives: ["3-bet pots deep - when and why", "Set mining và implied odds calculations", "Drawing hands evaluation", "Pot control với medium-strength hands"],
-                            keyPoints: ["SPR (Stack-to-Pot Ratio) quyết định commitment", "Position postflop = massive advantage", "Bluff sizing với deep stacks"],
-                            exercises: ["Analyze 30 postflop spots từ tournament histories", "Practice SPR calculations"],
-                            resources: ["Postflop analysis framework"]
-                        }
+                    description: "Chiến lược xây dựng stack và thu thập thông tin",
+                    lessons: [
+                        { id: "2.1", title: "Early Stage Fundamentals", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "2.2", title: "Exploitative Play - Nhận diện & Khai thác", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "2.3", title: "Postflop Mastery - Deep Stack Scenarios", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
@@ -619,113 +1557,36 @@
                     title: "MODULE 3: GIAI ĐOẠN GIỮA TOURNAMENT",
                     icon: "🎯",
                     color: "#10b981",
-                    sessions: [
-                        {
-                            id: "3.1",
-                            title: "Buổi 7: Blind Defense & Steal Game",
-                            duration: "90 phút",
-                            objectives: ["Optimal blind defense frequencies", "3-bet light from blinds - sizing và timing", "Defending vs different positions", "Squeeze play mastery"],
-                            keyPoints: ["Không defend quá rộng = leak lớn", "3-bet hoặc fold thường tốt hơn flat từ SB", "Position postflop compensation"],
-                            exercises: ["Review 50 blind defense hands", "Create squeeze spot identification checklist"],
-                            resources: ["Blind defense charts", "3-bet ranges"]
-                        },
-                        {
-                            id: "3.2",
-                            title: "Buổi 8: Aggression Là Vũ Khí - Controlled Aggression",
-                            duration: "90 phút",
-                            objectives: ["Betting as default action", "Semi-bluff frequencies và board textures", "Double và triple barrel criteria", "Check-raise as a weapon"],
-                            keyPoints: ["Aggression tạo fold equity = free chips", "Balance aggression với pot control", "Knowing when to slow down"],
-                            exercises: ["Tag 30 hands - missed aggression opportunities", "Practice delayed c-bet patterns"],
-                            resources: ["C-bet strategy matrix"]
-                        },
-                        {
-                            id: "3.3",
-                            title: "Buổi 9: Table Dynamics & Adjustments",
-                            duration: "75 phút",
-                            objectives: ["Đọc table dynamics real-time", "Adjusting khi table tighten/loosen", "Capitalizing on table changes", "Navigating difficult seats"],
-                            keyPoints: ["Table có rhythm, học cách ride it", "Đổi gears phù hợp", "Isolation plays"],
-                            exercises: ["Review session logs cho dynamics changes", "Practice gear shifting trong home games"],
-                            resources: ["Table dynamics worksheet"]
-                        },
-                        {
-                            id: "3.4",
-                            title: "Buổi 10: Short Stack Pressure - 25-40BB Mastery",
-                            duration: "90 phút",
-                            objectives: ["Opening ranges với mid-short stacks", "Reshove charts và adjustments", "ICM pressure exploitation", "Pot geometry với limited stacks"],
-                            keyPoints: ["Stack preservation vs accumulation balance", "Fold equity is golden", "All-in equity realization"],
-                            exercises: ["Memorize reshove ranges cho 25-40BB", "Practice with ICMizer simulations"],
-                            resources: ["Reshove charts", "Mid-stack strategy guide"]
-                        }
+                    description: "Aggression, stealing, và table dynamics",
+                    lessons: [
+                        { id: "3.1", title: "Blind Defense & Steal Game", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "3.2", title: "Controlled Aggression", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "3.3", title: "Table Dynamics & Adjustments", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "3.4", title: "Short Stack Pressure (25-40BB)", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
                     id: 4,
-                    title: "MODULE 4: BUBBLE PLAY - ĐIỂM NÚT QUAN TRỌNG",
+                    title: "MODULE 4: BUBBLE PLAY",
                     icon: "🛡️",
                     color: "#eab308",
-                    sessions: [
-                        {
-                            id: "4.1",
-                            title: "Buổi 11: Bubble Dynamics Fundamentals",
-                            duration: "120 phút",
-                            objectives: ["ICM pressure maximum - hiểu sâu", "Big stack tyranny - exploiting fear", "Medium stack prison - survival mode", "Short stack desperation - strategic gambles"],
-                            keyPoints: ["Bubble là điểm ICM pressure cao nhất", "Risk-reward hoàn toàn thay đổi", "Chip leader có massive leverage"],
-                            exercises: ["Analyze 20 bubble hands với ICM considerations", "Practice bubble simulations"],
-                            resources: ["Bubble ICM calculator", "Case studies"]
-                        },
-                        {
-                            id: "4.2",
-                            title: "Buổi 12: Big Stack Bubble Strategy",
-                            duration: "90 phút",
-                            objectives: ["Pressuring medium stacks relentlessly", "Avoiding short stacks (ICM suicide)", "Chip accumulation vs chip preservation", "When to slow down"],
-                            keyPoints: ["Big stack = bully với purpose", "Target the right opponents", "Don't give away chips unnecessarily"],
-                            exercises: ["Create pressure plan cho big stack scenarios", "Review 15 big stack bubble hands"],
-                            resources: ["Big stack bubble strategy"]
-                        },
-                        {
-                            id: "4.3",
-                            title: "Buổi 13: Short & Medium Stack Survival",
-                            duration: "90 phút",
-                            objectives: ["Survival mode - when to go ultra-tight", "Pick your spots - high equity only", "Reading big stack ranges", "Desperation shoves - timing"],
-                            keyPoints: ["Min-cash security vs bigger prizes", "Wait for better spots or take -EV gambles?", "Pay jump considerations"],
-                            exercises: ["Analyze 20 hands từ short/medium stack perspective", "Practice patience drills"],
-                            resources: ["Survival mode checklist"]
-                        }
+                    description: "Điểm nút quan trọng nhất của tournament",
+                    lessons: [
+                        { id: "4.1", title: "Bubble Dynamics Fundamentals", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "4.2", title: "Big Stack Bubble Strategy", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "4.3", title: "Short & Medium Stack Survival", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
                     id: 5,
-                    title: "MODULE 5: FINAL TABLE - VINH QUANG",
+                    title: "MODULE 5: FINAL TABLE",
                     icon: "🏆",
                     color: "#ec4899",
-                    sessions: [
-                        {
-                            id: "5.1",
-                            title: "Buổi 14: Final Table Dynamics",
-                            duration: "120 phút",
-                            objectives: ["Pay jump analysis và ladder climbing", "9-handed to heads-up transitions", "Stack relativity tại FT", "Pressure points và exploitation"],
-                            keyPoints: ["Mỗi elimination = massive pay jump", "Position tương đối important hơn", "Mental preparation critical"],
-                            exercises: ["Study 5 final tables trên video", "Create pay jump scenarios"],
-                            resources: ["Final table strategy videos", "Pay jump calculator"]
-                        },
-                        {
-                            id: "5.2",
-                            title: "Buổi 15: Heads-Up Championship Play",
-                            duration: "90 phút",
-                            objectives: ["HU ranges - massive widening", "Aggression as default", "Button play exploitation", "BB defense và counter-attacks"],
-                            keyPoints: ["HU là hoàn toàn different game", "Position = everything", "Fearlessness required"],
-                            exercises: ["Practice HU với friends (100+ hands)", "Review HU footage từ major tournaments"],
-                            resources: ["HU training software", "Range charts"]
-                        },
-                        {
-                            id: "5.3",
-                            title: "Buổi 16: Deal Making & ICM Deals",
-                            duration: "60 phút",
-                            objectives: ["Hiểu deal structures (chip chop, ICM chop)", "Negotiation strategies", "When to deal, when to play", "Playing with money secure"],
-                            keyPoints: ["Variance reduction vs EV maximization", "Negotiation là skill", "Personal bankroll considerations"],
-                            exercises: ["Calculate ICM chop cho 3 scenarios", "Practice negotiation scripts"],
-                            resources: ["Deal calculator", "Negotiation guide"]
-                        }
+                    description: "Chiến đấu vì vinh quang và prize money lớn",
+                    lessons: [
+                        { id: "5.1", title: "Final Table Dynamics", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "5.2", title: "Heads-Up Championship Play", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "5.3", title: "Deal Making & ICM Deals", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
@@ -733,131 +1594,38 @@
                     title: "MODULE 6: TÂM LÝ & MENTAL GAME",
                     icon: "💡",
                     color: "#06b6d4",
-                    sessions: [
-                        {
-                            id: "6.1",
-                            title: "Buổi 17: Tilt Control - Làm chủ cảm xúc",
-                            duration: "90 phút",
-                            objectives: ["Nhận diện trigger patterns của bản thân", "Prevention techniques", "In-session tilt management", "Recovery strategies"],
-                            keyPoints: ["Tilt = EV leak lớn nhất", "Awareness là bước đầu tiên", "Have an exit strategy"],
-                            exercises: ["Journal 30 ngày - emotional tracking", "Create personal tilt protocol"],
-                            resources: ["Tilt journal template", "Mental Game of Poker excerpts"]
-                        },
-                        {
-                            id: "6.2",
-                            title: "Buổi 18: Focus & Concentration",
-                            duration: "75 phút",
-                            objectives: ["8-hour concentration techniques", "Break management", "Nutrition và hydration", "Environment optimization"],
-                            keyPoints: ["Physical preparation = mental performance", "Routine is power", "Eliminate distractions ruthlessly"],
-                            exercises: ["Create tournament day routine", "Practice focus exercises daily (10 mins)"],
-                            resources: ["Focus training app", "Nutrition guide"]
-                        },
-                        {
-                            id: "6.3",
-                            title: "Buổi 19: Confidence & Fear Management",
-                            duration: "90 phút",
-                            objectives: ["Building unshakeable confidence", "Fear of busting - overcoming", "Playing your A-game under pressure", "Visualization techniques"],
-                            keyPoints: ["Confidence đến từ preparation", "Fear là natural, manage it", "Process over results"],
-                            exercises: ["Daily visualization (15 mins)", "Write confidence affirmations"],
-                            resources: ["Sports psychology resources", "Visualization scripts"]
-                        },
-                        {
-                            id: "6.4",
-                            title: "Buổi 20: Reads & Physical Tells",
-                            duration: "90 phút",
-                            objectives: ["Baseline behavior reading", "Stress indicators", "Timing tells", "Bet sizing tells"],
-                            keyPoints: ["Online tells = timing + sizing patterns", "Live tells = physical + verbal", "Context is everything"],
-                            exercises: ["Watch 10 hours live poker - note tells", "Practice false tells"],
-                            resources: ["Mike Caro's Book of Tells summary"]
-                        }
+                    description: "Làm chủ cảm xúc và tối ưu performance",
+                    lessons: [
+                        { id: "6.1", title: "Tilt Control", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "6.2", title: "Focus & Concentration", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "6.3", title: "Confidence & Fear Management", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "6.4", title: "Reads & Physical Tells", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
                     id: 7,
-                    title: "MODULE 7: KHAI THÁC ĐỐI THỦ CHUYÊN SÂU",
+                    title: "MODULE 7: KHAI THÁC ĐỐI THỦ",
                     icon: "👥",
                     color: "#8b5cf6",
-                    sessions: [
-                        {
-                            id: "7.1",
-                            title: "Buổi 21: Player Profiling Deep Dive",
-                            duration: "120 phút",
-                            objectives: ["8 player archetypes chi tiết", "Quick identification techniques", "Adjustment strategies for each", "Population tendencies"],
-                            keyPoints: ["Most players are predictable", "Look for patterns, not hands", "Exploit relentlessly until adjusted"],
-                            exercises: ["Create detailed profiles cho 30 players", "Test identification trong live games"],
-                            resources: ["Profiling matrix", "Statistics interpretation guide"]
-                        },
-                        {
-                            id: "7.2",
-                            title: "Buổi 22: HUD Mastery & Statistics",
-                            duration: "90 phút",
-                            objectives: ["Essential stats và thresholds", "Position-specific stats", "Building effective HUD layouts", "Stats trong MTT context"],
-                            keyPoints: ["VPIP/PFR/3-bet/Fold to 3-bet basics", "Postflop aggression stats", "Sample size requirements"],
-                            exercises: ["Build custom HUD layout", "Analyze 50 opponents stats từ database"],
-                            resources: ["HUD setup guide", "Stats interpretation"]
-                        },
-                        {
-                            id: "7.3",
-                            title: "Buổi 23: Live Tells & Table Talk",
-                            duration: "90 phút",
-                            objectives: ["Reading body language", "Speech patterns analysis", "Chip handling tells", "Using table talk strategically"],
-                            keyPoints: ["Strong = weak, weak = strong (usually)", "Look for involuntary responses", "Information extraction through conversation"],
-                            exercises: ["Practice reading in live games (50 hands)", "Record notes on tells observed"],
-                            resources: ["Live tells checklist"]
-                        },
-                        {
-                            id: "7.4",
-                            title: "Buổi 24: Metagame & Table Image",
-                            duration: "75 phút",
-                            objectives: ["Managing your own image", "Image exploitation by opponents", "Metagame wars", "History-based adjustments"],
-                            keyPoints: ["Bạn có image - manage it", "Use image to deceive", "Multi-table metagame considerations"],
-                            exercises: ["Analyze your own database for tendencies", "Create image management plan"],
-                            resources: ["Metagame strategy guide"]
-                        }
+                    description: "Player profiling và exploitation strategies",
+                    lessons: [
+                        { id: "7.1", title: "Player Profiling Deep Dive", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "7.2", title: "HUD Mastery & Statistics", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "7.3", title: "Live Tells & Table Talk", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "7.4", title: "Metagame & Table Image", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
                     id: 8,
-                    title: "MODULE 8: ADVANCED CONCEPTS & GTO",
+                    title: "MODULE 8: GTO & ADVANCED",
                     icon: "📊",
                     color: "#10b981",
-                    sessions: [
-                        {
-                            id: "8.1",
-                            title: "Buổi 25: GTO Fundamentals for MTT",
-                            duration: "120 phút",
-                            objectives: ["GTO vs Exploitative - when to use what", "Balanced ranges concept", "MDF (Minimum Defense Frequency)", "Polarization strategies"],
-                            keyPoints: ["GTO = unexploitable baseline", "Deviate với purpose", "Balance quan trọng vs regs"],
-                            exercises: ["Study GTO solutions cho 20 common spots", "Practice identifying deviation opportunities"],
-                            resources: ["GTO Wizard", "Simple Poker", "MonkerSolver"]
-                        },
-                        {
-                            id: "8.2",
-                            title: "Buổi 26: Range Construction",
-                            duration: "90 phút",
-                            objectives: ["Building balanced opening ranges", "3-bet/4-bet range construction", "Calling ranges optimization", "Range vs range thinking"],
-                            keyPoints: ["Think in ranges, not hands", "Equity distribution across range", "Board texture và range interaction"],
-                            exercises: ["Create complete preflop range charts", "Practice range assignment drills"],
-                            resources: ["Range construction tool", "Preflop charts"]
-                        },
-                        {
-                            id: "8.3",
-                            title: "Buổi 27: Multi-way Pot Strategy",
-                            duration: "90 phút",
-                            objectives: ["Adjustments cho 3+ way pots", "Value betting in multiway", "Bluffing restrictions", "Position amplification"],
-                            keyPoints: ["Bluffs giảm giá trị multiway", "Value range tightens", "Position even more critical"],
-                            exercises: ["Analyze 30 multiway hands", "Create multiway strategy adjustments"],
-                            resources: ["Multiway pot strategy"]
-                        },
-                        {
-                            id: "8.4",
-                            title: "Buổi 28: Solver Work & Study Methods",
-                            duration: "90 phút",
-                            objectives: ["Efficient solver usage", "Nodal analysis", "Pattern recognition từ solutions", "Applying solver insights in-game"],
-                            keyPoints: ["Solver = learning tool, not oracle", "Focus on frequencies, not exact numbers", "Internalize patterns"],
-                            exercises: ["Run 50 solver simulations", "Create study templates"],
-                            resources: ["Solver workflow guide"]
-                        }
+                    description: "Game theory và concepts nâng cao",
+                    lessons: [
+                        { id: "8.1", title: "GTO Fundamentals for MTT", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "8.2", title: "Range Construction", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "8.3", title: "Multi-way Pot Strategy", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "8.4", title: "Solver Work & Study Methods", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 },
                 {
@@ -865,62 +1633,35 @@
                     title: "MODULE 9: PRACTICE & REVIEW",
                     icon: "⚡",
                     color: "#f97316",
-                    sessions: [
-                        {
-                            id: "9.1",
-                            title: "Buổi 29: Hand History Review Methodology",
-                            duration: "120 phút",
-                            objectives: ["Effective HH review process", "Identifying leaks systematically", "Using database filters", "Group study methods"],
-                            keyPoints: ["Focus on decision quality, not results", "Review losing AND winning hands", "Track patterns over time"],
-                            exercises: ["Review 100 hands từ recent sessions", "Create leak spreadsheet"],
-                            resources: ["HH review template", "Database filter presets"]
-                        },
-                        {
-                            id: "9.2",
-                            title: "Buổi 30: Practice Session - Early/Mid Stage",
-                            duration: "180 phút",
-                            objectives: ["Áp dụng concepts từ Modules 2-3", "Real-time decision making", "Note-taking practice", "Instant replay analysis"],
-                            keyPoints: ["Apply concepts consciously", "Take notes for later review", "Focus on process"],
-                            exercises: ["Play 2-3 tournaments với notes", "Review immediately sau session"],
-                            resources: ["Session log template"]
-                        },
-                        {
-                            id: "9.3",
-                            title: "Buổi 31: Practice Session - Bubble/Final Table",
-                            duration: "180 phút",
-                            objectives: ["ICM decision making practice", "High pressure situation handling", "Mental game under stress", "Final table simulation"],
-                            keyPoints: ["Simulate high pressure", "Focus on ICM considerations", "Track mental state"],
-                            exercises: ["Sit-n-go grinding cho ICM practice", "Final table simulation với friends"],
-                            resources: ["SNG strategy adjustments"]
-                        },
-                        {
-                            id: "9.4",
-                            title: "Buổi 32: Comprehensive Review & Certification",
-                            duration: "120 phút",
-                            objectives: ["Full course review", "Skill assessment", "Personalized improvement plan", "Next steps planning"],
-                            keyPoints: ["Consolidate learning", "Identify remaining gaps", "Create ongoing study plan"],
-                            exercises: ["Complete skill assessment quiz", "Write personal development plan"],
-                            resources: ["Assessment materials", "Ongoing study guide"]
-                        }
+                    description: "Luyện tập và đánh giá kỹ năng",
+                    lessons: [
+                        { id: "9.1", title: "Hand History Review", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "9.2", title: "Practice - Early/Mid Stage", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "9.3", title: "Practice - Bubble/Final Table", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' },
+                        { id: "9.4", title: "Comprehensive Review", duration: "Coming soon", content: '<div class="coming-soon"><h3>🚧 Đang phát triển</h3><p>Nội dung sẽ được cập nhật trong phiên bản tiếp theo</p></div>' }
                     ]
                 }
             ]
         };
 
+        // State
         let progress = {};
         let notes = {};
+        let currentView = 'home';
+        let currentLesson = null;
 
+        // Initialize
         function init() {
             loadData();
-            renderCourse();
+            renderModules();
             updateProgress();
-            renderAllNotes();
         }
 
+        // Data management
         function loadData() {
             try {
-                const savedProgress = localStorage.getItem('poker-progress');
-                const savedNotes = localStorage.getItem('poker-notes');
+                const savedProgress = localStorage.getItem('poker-mastery-progress');
+                const savedNotes = localStorage.getItem('poker-mastery-notes');
                 if (savedProgress) progress = JSON.parse(savedProgress);
                 if (savedNotes) notes = JSON.parse(savedNotes);
             } catch(e) {
@@ -930,260 +1671,256 @@
 
         function saveData() {
             try {
-                localStorage.setItem('poker-progress', JSON.stringify(progress));
-                localStorage.setItem('poker-notes', JSON.stringify(notes));
+                localStorage.setItem('poker-mastery-progress', JSON.stringify(progress));
+                localStorage.setItem('poker-mastery-notes', JSON.stringify(notes));
             } catch(e) {
                 console.log('Error saving data');
             }
         }
 
-        function renderCourse() {
-            const container = document.getElementById('courseContent');
+        // Rendering
+        function renderModules() {
+            const container = document.getElementById('modulesList');
             container.innerHTML = courseData.modules.map(module => {
-                const completed = module.sessions.filter(s => progress[s.id]).length;
-                const total = module.sessions.length;
-                const percent = (completed / total) * 100;
+                const completedLessons = module.lessons.filter(l => progress[l.id]).length;
+                const totalLessons = module.lessons.length;
+                const percent = (completedLessons / totalLessons) * 100;
                 
                 return `
-                    <div class="module" id="module-${module.id}">
+                    <div class="module-card" id="module-${module.id}">
                         <div class="module-header" onclick="toggleModule(${module.id})">
                             <div class="module-icon" style="background: ${module.color}">${module.icon}</div>
                             <div class="module-info">
-                                <div class="module-title">${module.title}</div>
-                                <div class="module-progress">
-                                    <div class="module-progress-bar">
-                                        <div class="module-progress-fill" style="width: ${percent}%; background: ${module.color}"></div>
+                                <h3>${module.title}</h3>
+                                <div class="module-meta">
+                                    <div class="module-progress-mini">
+                                        <div class="module-progress-mini-fill" style="width: ${percent}%; background: ${module.color}"></div>
                                     </div>
-                                    <span class="module-progress-text">${completed}/${total}</span>
-                                    ${completed === total ? '<span class="completed-badge">✓</span>' : ''}
+                                    <span>${completedLessons}/${totalLessons} buổi</span>
                                 </div>
                             </div>
                             <span class="module-arrow">›</span>
                         </div>
-                        <div class="sessions">
-                            ${module.sessions.map(session => renderSession(session)).join('')}
+                        <div class="module-lessons">
+                            ${module.lessons.map(lesson => `
+                                <div class="lesson-item ${progress[lesson.id] ? 'completed' : ''}" onclick="openLesson('${lesson.id}')">
+                                    <div class="lesson-check ${progress[lesson.id] ? 'completed' : ''}">
+                                        ${progress[lesson.id] ? '✓' : ''}
+                                    </div>
+                                    <div class="lesson-info">
+                                        <h4>${lesson.title}</h4>
+                                        <span>${lesson.duration}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function renderSession(session) {
-            const isCompleted = progress[session.id];
-            const sessionNotes = notes[session.id] || [];
-            
-            return `
-                <div class="session" id="session-${session.id}">
-                    <div class="session-check ${isCompleted ? 'completed' : ''}" onclick="toggleSession('${session.id}')">
-                        ${isCompleted ? '✓' : ''}
-                    </div>
-                    <div class="session-content">
-                        <div class="session-header" onclick="toggleSessionExpand('${session.id}')">
-                            <span class="session-title ${isCompleted ? 'completed' : ''}">${session.title}</span>
-                            <span class="session-duration">⏱ ${session.duration}</span>
-                        </div>
-                        <div class="session-details" id="details-${session.id}">
-                            <div class="detail-section">
-                                <div class="detail-title objectives">🎯 Mục tiêu</div>
-                                <ul class="detail-list">
-                                    ${session.objectives.map(o => `<li data-bullet="•">${o}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title keypoints">⭐ Key Points</div>
-                                <ul class="detail-list">
-                                    ${session.keyPoints.map(k => `<li data-bullet="★">${k}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title exercises">⚡ Bài tập</div>
-                                <ul class="detail-list">
-                                    ${session.exercises.map(e => `<li data-bullet="→">${e}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <div class="detail-section">
-                                <div class="detail-title resources">📚 Tài liệu</div>
-                                <div class="resources-tags">
-                                    ${session.resources.map(r => `<span class="resource-tag">${r}</span>`).join('')}
-                                </div>
-                            </div>
-                            <div class="notes-section">
-                                <div class="notes-title">📝 Ghi chú của bạn</div>
-                                <div id="notes-list-${session.id}">
-                                    ${sessionNotes.map((n, i) => `
-                                        <div class="note-item">
-                                            <div>
-                                                <div class="note-text">${n.text}</div>
-                                                <div class="note-date">${n.date}</div>
-                                            </div>
-                                            <span class="note-delete" onclick="deleteNote('${session.id}', ${i})">Xóa</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <div id="note-input-${session.id}" style="display: none;">
-                                    <div class="note-input-wrap">
-                                        <input type="text" class="note-input" id="note-text-${session.id}" placeholder="Thêm ghi chú...">
-                                        <button class="note-save" onclick="saveNote('${session.id}')">Lưu</button>
-                                        <button class="note-cancel" onclick="hideNoteInput('${session.id}')">✕</button>
-                                    </div>
-                                </div>
-                                <button class="add-note-btn" id="add-note-btn-${session.id}" onclick="showNoteInput('${session.id}')">+ Thêm ghi chú</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
         function toggleModule(moduleId) {
-            const module = document.getElementById(`module-${moduleId}`);
-            module.classList.toggle('expanded');
-        }
-
-        function toggleSession(sessionId) {
-            progress[sessionId] = !progress[sessionId];
-            saveData();
-            renderCourse();
-            updateProgress();
-        }
-
-        function toggleSessionExpand(sessionId) {
-            const session = document.getElementById(`session-${sessionId}`);
-            session.classList.toggle('expanded');
+            const card = document.getElementById(`module-${moduleId}`);
+            card.classList.toggle('expanded');
         }
 
         function updateProgress() {
-            const allSessions = courseData.modules.flatMap(m => m.sessions);
-            const completed = allSessions.filter(s => progress[s.id]).length;
-            const total = allSessions.length;
+            const allLessons = courseData.modules.flatMap(m => m.lessons);
+            const completed = allLessons.filter(l => progress[l.id]).length;
+            const total = allLessons.length;
             const percent = (completed / total) * 100;
-            
-            document.getElementById('totalProgress').textContent = `${completed}/${total} buổi`;
+
+            document.getElementById('totalProgressText').textContent = `${completed}/${total} buổi`;
             document.getElementById('totalProgressBar').style.width = `${percent}%`;
-            
-            // Find current session
-            let currentSession = null;
+
+            // Find next lesson
+            let nextLesson = null;
             for (const module of courseData.modules) {
-                for (const session of module.sessions) {
-                    if (!progress[session.id]) {
-                        currentSession = session;
+                for (const lesson of module.lessons) {
+                    if (!progress[lesson.id]) {
+                        nextLesson = lesson;
                         break;
                     }
                 }
-                if (currentSession) break;
+                if (nextLesson) break;
             }
-            
-            const card = document.getElementById('currentSessionCard');
-            if (currentSession) {
-                card.style.display = 'block';
-                document.getElementById('currentSessionTitle').textContent = currentSession.title;
+
+            if (nextLesson) {
+                document.getElementById('currentLessonTitle').textContent = nextLesson.title;
+                document.getElementById('currentLessonCard').style.display = 'block';
             } else {
-                card.style.display = 'none';
+                document.getElementById('currentLessonCard').style.display = 'none';
             }
+        }
+
+        function goToCurrentLesson() {
+            for (const module of courseData.modules) {
+                for (const lesson of module.lessons) {
+                    if (!progress[lesson.id]) {
+                        openLesson(lesson.id);
+                        return;
+                    }
+                }
+            }
+        }
+
+        function openLesson(lessonId) {
+            let lesson = null;
+            let module = null;
             
-            // Update total notes count
-            const totalNotesCount = Object.values(notes).flat().length;
-            document.getElementById('totalNotes').textContent = totalNotesCount;
+            for (const m of courseData.modules) {
+                const l = m.lessons.find(les => les.id === lessonId);
+                if (l) {
+                    lesson = l;
+                    module = m;
+                    break;
+                }
+            }
+
+            if (!lesson) return;
+
+            currentLesson = lesson;
+            currentView = 'lesson';
+
+            document.getElementById('homePage').classList.add('hidden');
+            
+            const lessonNotes = notes[lessonId] || [];
+            
+            const lessonHTML = `
+                <div class="lesson-page active">
+                    <div class="lesson-header">
+                        <div class="breadcrumb">${module.title}</div>
+                        <h1>${lesson.title}</h1>
+                        <div class="meta">
+                            <span>⏱ ${lesson.duration}</span>
+                            <span>${progress[lessonId] ? '✅ Đã hoàn thành' : '📖 Chưa hoàn thành'}</span>
+                        </div>
+                    </div>
+
+                    ${lesson.content}
+
+                    <div class="content-section notes-section">
+                        <h3>📝 Ghi chú của bạn</h3>
+                        <div class="saved-notes" id="lessonNotes">
+                            ${lessonNotes.map((note, i) => `
+                                <div class="saved-note">
+                                    <div>
+                                        <p>${note.text}</p>
+                                        <small>${note.date}</small>
+                                    </div>
+                                    <button class="delete-note" onclick="deleteNote('${lessonId}', ${i})">Xóa</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="note-input-area">
+                            <textarea class="note-input" id="noteInput" placeholder="Viết ghi chú của bạn..."></textarea>
+                        </div>
+                        <button class="save-note-btn mt-2" onclick="saveNote('${lessonId}')">💾 Lưu ghi chú</button>
+                    </div>
+
+                    <div class="lesson-nav">
+                        ${getPrevLesson(lessonId) ? `<button class="btn-prev" onclick="openLesson('${getPrevLesson(lessonId)}')">← Trước</button>` : '<div></div>'}
+                        ${!progress[lessonId] 
+                            ? `<button class="btn-complete" onclick="completeLesson('${lessonId}')">✓ Hoàn thành</button>`
+                            : `<button class="btn-next" onclick="goHome()">📚 Menu</button>`
+                        }
+                        ${getNextLesson(lessonId) ? `<button class="btn-next" onclick="openLesson('${getNextLesson(lessonId)}')">Tiếp →</button>` : '<div></div>'}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('lessonPages').innerHTML = lessonHTML;
+            window.scrollTo(0, 0);
         }
 
-        function showNoteInput(sessionId) {
-            document.getElementById(`note-input-${sessionId}`).style.display = 'block';
-            document.getElementById(`add-note-btn-${sessionId}`).style.display = 'none';
-            document.getElementById(`note-text-${sessionId}`).focus();
+        function getPrevLesson(currentId) {
+            const allLessons = courseData.modules.flatMap(m => m.lessons);
+            const index = allLessons.findIndex(l => l.id === currentId);
+            return index > 0 ? allLessons[index - 1].id : null;
         }
 
-        function hideNoteInput(sessionId) {
-            document.getElementById(`note-input-${sessionId}`).style.display = 'none';
-            document.getElementById(`add-note-btn-${sessionId}`).style.display = 'block';
-            document.getElementById(`note-text-${sessionId}`).value = '';
+        function getNextLesson(currentId) {
+            const allLessons = courseData.modules.flatMap(m => m.lessons);
+            const index = allLessons.findIndex(l => l.id === currentId);
+            return index < allLessons.length - 1 ? allLessons[index + 1].id : null;
         }
 
-        function saveNote(sessionId) {
-            const text = document.getElementById(`note-text-${sessionId}`).value.trim();
+        function completeLesson(lessonId) {
+            progress[lessonId] = true;
+            saveData();
+            updateProgress();
+            renderModules();
+            
+            const nextId = getNextLesson(lessonId);
+            if (nextId) {
+                openLesson(nextId);
+            } else {
+                goHome();
+            }
+        }
+
+        function goHome() {
+            currentView = 'home';
+            currentLesson = null;
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('lessonPages').innerHTML = '';
+            renderModules();
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function saveNote(lessonId) {
+            const input = document.getElementById('noteInput');
+            const text = input.value.trim();
+            
             if (text) {
-                if (!notes[sessionId]) notes[sessionId] = [];
-                notes[sessionId].push({
+                if (!notes[lessonId]) notes[lessonId] = [];
+                notes[lessonId].push({
                     text: text,
                     date: new Date().toLocaleDateString('vi-VN')
                 });
                 saveData();
-                renderCourse();
-                updateProgress();
-                renderAllNotes();
+                input.value = '';
+                openLesson(lessonId); // Refresh
             }
-            hideNoteInput(sessionId);
         }
 
-        function deleteNote(sessionId, index) {
+        function deleteNote(lessonId, index) {
             if (confirm('Xóa ghi chú này?')) {
-                notes[sessionId].splice(index, 1);
-                if (notes[sessionId].length === 0) delete notes[sessionId];
+                notes[lessonId].splice(index, 1);
+                if (notes[lessonId].length === 0) delete notes[lessonId];
                 saveData();
-                renderCourse();
-                updateProgress();
-                renderAllNotes();
+                openLesson(lessonId); // Refresh
             }
         }
 
-        function showTab(tab) {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+        // Quiz functionality
+        function checkAnswer(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
             
-            if (tab === 'course') {
-                document.getElementById('courseContent').classList.remove('hidden');
-                document.getElementById('allNotes').classList.remove('active');
+            if (isCorrect) {
+                element.classList.add('correct');
             } else {
-                document.getElementById('courseContent').classList.add('hidden');
-                document.getElementById('allNotes').classList.add('active');
+                element.classList.add('incorrect');
+                // Find and highlight correct answer
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            // Show explanation
+            const explanation = element.parentElement.nextElementSibling;
+            if (explanation && explanation.classList.contains('quiz-explanation')) {
+                explanation.classList.add('show');
             }
         }
 
-        function renderAllNotes() {
-            const container = document.getElementById('allNotes');
-            const allSessionsWithNotes = Object.entries(notes).filter(([_, n]) => n.length > 0);
-            
-            if (allSessionsWithNotes.length === 0) {
-                container.innerHTML = '<div class="empty-notes">Chưa có ghi chú nào.<br>Hãy thêm ghi chú khi học!</div>';
-                return;
-            }
-            
-            const allSessions = courseData.modules.flatMap(m => m.sessions);
-            
-            container.innerHTML = allSessionsWithNotes.map(([sessionId, sessionNotes]) => {
-                const session = allSessions.find(s => s.id === sessionId);
-                if (!session) return '';
-                
-                return `
-                    <div class="note-group">
-                        <div class="note-session-title">${session.title}</div>
-                        ${sessionNotes.map((n, i) => `
-                            <div class="note-item">
-                                <div>
-                                    <div class="note-text">${n.text}</div>
-                                    <div class="note-date">${n.date}</div>
-                                </div>
-                                <span class="note-delete" onclick="deleteNote('${sessionId}', ${i})">Xóa</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function resetProgress() {
-            if (confirm('Bạn có chắc muốn reset toàn bộ tiến độ và ghi chú?')) {
-                progress = {};
-                notes = {};
-                localStorage.removeItem('poker-progress');
-                localStorage.removeItem('poker-notes');
-                renderCourse();
-                updateProgress();
-                renderAllNotes();
-            }
-        }
-
-        // Initialize
+        // Initialize on load
         init();
     </script>
 </body>
