@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>🎯 Poker Tournament Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 16px;
+            padding-bottom: 100px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            background: linear-gradient(90deg, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        .progress-card {
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .progress-header span {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .progress-header strong {
+            color: #fbbf24;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #334155;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f97316);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .current-session {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 10px;
+        }
+        
+        .current-session .label {
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .current-session .title {
+            color: #fbbf24;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #fbbf24;
+            color: #000;
+        }
+        
+        .tab:not(.active) {
+            background: #334155;
+            color: #94a3b8;
+        }
+        
+        .module {
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+        
+        .module-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .module-header:active {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .module-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .module-title {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .module-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        
+        .module-progress-bar {
+            height: 6px;
+            width: 80px;
+            background: #334155;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .module-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        
+        .module-progress-text {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .module-arrow {
+            color: #64748b;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .module.expanded .module-arrow {
+            transform: rotate(90deg);
+        }
+        
+        .sessions {
+            display: none;
+            border-top: 1px solid #334155;
+        }
+        
+        .module.expanded .sessions {
+            display: block;
+        }
+        
+        .session {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            display: flex;
+            gap: 12px;
+        }
+        
+        .session:last-child {
+            border-bottom: none;
+        }
+        
+        .session-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .session-check.completed {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: #fff;
+        }
+        
+        .session-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .session-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .session-title.completed {
+            color: #64748b;
+            text-decoration: line-through;
+        }
+        
+        .session-duration {
+            font-size: 11px;
+            color: #64748b;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .session-details {
+            display: none;
+            margin-top: 12px;
+        }
+        
+        .session.expanded .session-details {
+            display: block;
+        }
+        
+        .detail-section {
+            background: rgba(51, 65, 85, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .detail-title.objectives { color: #fbbf24; }
+        .detail-title.keypoints { color: #22d3ee; }
+        .detail-title.exercises { color: #22c55e; }
+        .detail-title.resources { color: #a78bfa; }
+        
+        .detail-list {
+            list-style: none;
+        }
+        
+        .detail-list li {
+            font-size: 13px;
+            color: #cbd5e1;
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .detail-list li::before {
+            content: attr(data-bullet);
+            position: absolute;
+            left: 0;
+        }
+        
+        .resources-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .resource-tag {
+            background: rgba(167, 139, 250, 0.2);
+            color: #c4b5fd;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        
+        .notes-section {
+            border-top: 1px solid #475569;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        
+        .notes-title {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        
+        .note-item {
+            background: rgba(71, 85, 105, 0.4);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .note-text {
+            font-size: 13px;
+            color: #cbd5e1;
+            flex: 1;
+        }
+        
+        .note-date {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        .note-delete {
+            color: #ef4444;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        
+        .add-note-btn {
+            color: #fbbf24;
+            font-size: 13px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px 0;
+        }
+        
+        .note-input-wrap {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .note-input {
+            flex: 1;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .note-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+        }
+        
+        .note-save {
+            background: #fbbf24;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .note-cancel {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .all-notes {
+            display: none;
+        }
+        
+        .all-notes.active {
+            display: block;
+        }
+        
+        .course-content {
+            display: block;
+        }
+        
+        .course-content.hidden {
+            display: none;
+        }
+        
+        .empty-notes {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+        }
+        
+        .note-session-title {
+            color: #fbbf24;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .note-group {
+            background: rgba(51, 65, 85, 0.4);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .footer-tips {
+            margin-top: 30px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 2;
+        }
+        
+        .reset-btn {
+            margin-top: 20px;
+            background: none;
+            border: 1px solid #475569;
+            color: #64748b;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .check-icon::after {
+            content: "✓";
+        }
+        
+        .completed-badge {
+            color: #22c55e;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 POKER TOURNAMENT MASTERY</h1>
+        <p>Khóa học nâng cao cho người đã có căn bản</p>
+    </div>
+    
+    <div class="progress-card">
+        <div class="progress-header">
+            <span>Tiến độ tổng thể</span>
+            <strong id="totalProgress">0/32 buổi</strong>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="totalProgressBar" style="width: 0%"></div>
+        </div>
+        <div class="current-session" id="currentSessionCard">
+            <div class="label">📖 Buổi tiếp theo:</div>
+            <div class="title" id="currentSessionTitle">Đang tải...</div>
+        </div>
+    </div>
+    
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('course')">📚 Khóa học</button>
+        <button class="tab" onclick="showTab('notes')">📝 Ghi chú (<span id="totalNotes">0</span>)</button>
+    </div>
+    
+    <div class="course-content" id="courseContent"></div>
+    
+    <div class="all-notes" id="allNotes"></div>
+    
+    <div class="footer-tips">
+        <p>💡 Nhấn vào ⭕ để đánh dấu hoàn thành</p>
+        <p>📝 Thêm ghi chú để củng cố kiến thức</p>
+        <p>🔄 Tiến độ tự động lưu trên máy bạn</p>
+    </div>
+    
+    <button class="reset-btn" onclick="resetProgress()">🔄 Reset tiến độ</button>
+
+    <script>
+        const courseData = {
+            modules: [
+                {
+                    id: 1,
+                    title: "MODULE 1: NỀN TẢNG TƯ DUY TOURNAMENT",
+                    icon: "🧠",
+                    color: "#8b5cf6",
+                    sessions: [
+                        {
+                            id: "1.1",
+                            title: "Buổi 1: Tournament vs Cash Game - Sự khác biệt cốt lõi",
+                            duration: "90 phút",
+                            objectives: ["Hiểu rõ ICM (Independent Chip Model) và tại sao nó thay đổi mọi quyết định", "Chip value không bằng dollar value - khái niệm survival equity", "Stack-to-blind ratio và ý nghĩa chiến lược", "Payout structure ảnh hưởng đến risk tolerance"],
+                            keyPoints: ["ICM pressure tăng dần khi gần bubble và final table", "Mỗi chip mất có giá trị hơn chip thắng (diminishing marginal utility)", "Tournament là marathon, không phải sprint"],
+                            exercises: ["Sử dụng ICMizer để phân tích 10 hand histories của bạn", "So sánh quyết định cash game vs tournament với cùng một hand"],
+                            resources: ["ICMizer", "PokerStove", "GTO Wizard"]
+                        },
+                        {
+                            id: "1.2",
+                            title: "Buổi 2: Stack Size Dynamics - Làm chủ mọi độ sâu",
+                            duration: "90 phút",
+                            objectives: ["Deep stack play (100+ BB): Value extraction và pot control", "Mid stack (40-100 BB): Flexibility và setup plays", "Short stack (20-40 BB): Push/fold thresholds", "Micro stack (<20 BB): Survival mode và jam ranges"],
+                            keyPoints: ["Stack size quyết định playability của hands", "Adjust opening ranges theo effective stacks", "Position + stack size = power dynamic"],
+                            exercises: ["Tạo bảng opening ranges cho 4 stack depths khác nhau", "Review 20 hands và xác định stack dynamics sai lầm"],
+                            resources: ["ICMIZER Push/Fold Charts", "Nash Equilibrium Charts"]
+                        },
+                        {
+                            id: "1.3",
+                            title: "Buổi 3: Tournament Structure Reading",
+                            duration: "75 phút",
+                            objectives: ["Đọc hiểu structure sheet - những gì quan trọng", "Pace of play và average stack projection", "Late registration strategy", "Reentry/Rebuy considerations"],
+                            keyPoints: ["Structure tốt vs structure xấu - ROI implications", "Tính toán khi nào stack trở nên critical", "Planning ahead cho bubble và final table"],
+                            exercises: ["Phân tích 5 tournament structures khác nhau", "Tạo game plan cho từng structure"],
+                            resources: ["Tournament structure comparison sheets"]
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "MODULE 2: GIAI ĐOẠN ĐẦU TOURNAMENT",
+                    icon: "🔥",
+                    color: "#f97316",
+                    sessions: [
+                        {
+                            id: "2.1",
+                            title: "Buổi 4: Early Stage Fundamentals - Building Foundation",
+                            duration: "90 phút",
+                            objectives: ["Tight-aggressive approach với deep stacks", "Table selection và seat selection", "Building image và gathering information", "Avoiding unnecessary variance"],
+                            keyPoints: ["Không có giải thưởng cho early chip lead", "Protect stack, spot opportunities", "Information > chips ở giai đoạn này"],
+                            exercises: ["Track 50 hands early stage - phân tích decisions", "Ghi chú về 5+ opponents tại table"],
+                            resources: ["HUD setup guide", "Note-taking templates"]
+                        },
+                        {
+                            id: "2.2",
+                            title: "Buổi 5: Exploitative Play - Nhận diện & Khai thác",
+                            duration: "90 phút",
+                            objectives: ["Nhận diện player types trong 30 phút đầu", "Exploiting tight players - steal wider, bet less for value", "Exploiting loose players - tighten up, value bet thinner", "Adjustments cho recreational players"],
+                            keyPoints: ["Profiles: Nit, TAG, LAG, Fish, Maniac", "Khai thác betting patterns cụ thể", "Counter-exploitation awareness"],
+                            exercises: ["Classify 20 players từ database theo type", "Viết exploitation plan cho từng type"],
+                            resources: ["Player profiling worksheet"]
+                        },
+                        {
+                            id: "2.3",
+                            title: "Buổi 6: Postflop Mastery - Deep Stack Scenarios",
+                            duration: "120 phút",
+                            objectives: ["3-bet pots deep - when and why", "Set mining và implied odds calculations", "Drawing hands evaluation", "Pot control với medium-strength hands"],
+                            keyPoints: ["SPR (Stack-to-Pot Ratio) quyết định commitment", "Position postflop = massive advantage", "Bluff sizing với deep stacks"],
+                            exercises: ["Analyze 30 postflop spots từ tournament histories", "Practice SPR calculations"],
+                            resources: ["Postflop analysis framework"]
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "MODULE 3: GIAI ĐOẠN GIỮA TOURNAMENT",
+                    icon: "🎯",
+                    color: "#10b981",
+                    sessions: [
+                        {
+                            id: "3.1",
+                            title: "Buổi 7: Blind Defense & Steal Game",
+                            duration: "90 phút",
+                            objectives: ["Optimal blind defense frequencies", "3-bet light from blinds - sizing và timing", "Defending vs different positions", "Squeeze play mastery"],
+                            keyPoints: ["Không defend quá rộng = leak lớn", "3-bet hoặc fold thường tốt hơn flat từ SB", "Position postflop compensation"],
+                            exercises: ["Review 50 blind defense hands", "Create squeeze spot identification checklist"],
+                            resources: ["Blind defense charts", "3-bet ranges"]
+                        },
+                        {
+                            id: "3.2",
+                            title: "Buổi 8: Aggression Là Vũ Khí - Controlled Aggression",
+                            duration: "90 phút",
+                            objectives: ["Betting as default action", "Semi-bluff frequencies và board textures", "Double và triple barrel criteria", "Check-raise as a weapon"],
+                            keyPoints: ["Aggression tạo fold equity = free chips", "Balance aggression với pot control", "Knowing when to slow down"],
+                            exercises: ["Tag 30 hands - missed aggression opportunities", "Practice delayed c-bet patterns"],
+                            resources: ["C-bet strategy matrix"]
+                        },
+                        {
+                            id: "3.3",
+                            title: "Buổi 9: Table Dynamics & Adjustments",
+                            duration: "75 phút",
+                            objectives: ["Đọc table dynamics real-time", "Adjusting khi table tighten/loosen", "Capitalizing on table changes", "Navigating difficult seats"],
+                            keyPoints: ["Table có rhythm, học cách ride it", "Đổi gears phù hợp", "Isolation plays"],
+                            exercises: ["Review session logs cho dynamics changes", "Practice gear shifting trong home games"],
+                            resources: ["Table dynamics worksheet"]
+                        },
+                        {
+                            id: "3.4",
+                            title: "Buổi 10: Short Stack Pressure - 25-40BB Mastery",
+                            duration: "90 phút",
+                            objectives: ["Opening ranges với mid-short stacks", "Reshove charts và adjustments", "ICM pressure exploitation", "Pot geometry với limited stacks"],
+                            keyPoints: ["Stack preservation vs accumulation balance", "Fold equity is golden", "All-in equity realization"],
+                            exercises: ["Memorize reshove ranges cho 25-40BB", "Practice with ICMizer simulations"],
+                            resources: ["Reshove charts", "Mid-stack strategy guide"]
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    title: "MODULE 4: BUBBLE PLAY - ĐIỂM NÚT QUAN TRỌNG",
+                    icon: "🛡️",
+                    color: "#eab308",
+                    sessions: [
+                        {
+                            id: "4.1",
+                            title: "Buổi 11: Bubble Dynamics Fundamentals",
+                            duration: "120 phút",
+                            objectives: ["ICM pressure maximum - hiểu sâu", "Big stack tyranny - exploiting fear", "Medium stack prison - survival mode", "Short stack desperation - strategic gambles"],
+                            keyPoints: ["Bubble là điểm ICM pressure cao nhất", "Risk-reward hoàn toàn thay đổi", "Chip leader có massive leverage"],
+                            exercises: ["Analyze 20 bubble hands với ICM considerations", "Practice bubble simulations"],
+                            resources: ["Bubble ICM calculator", "Case studies"]
+                        },
+                        {
+                            id: "4.2",
+                            title: "Buổi 12: Big Stack Bubble Strategy",
+                            duration: "90 phút",
+                            objectives: ["Pressuring medium stacks relentlessly", "Avoiding short stacks (ICM suicide)", "Chip accumulation vs chip preservation", "When to slow down"],
+                            keyPoints: ["Big stack = bully với purpose", "Target the right opponents", "Don't give away chips unnecessarily"],
+                            exercises: ["Create pressure plan cho big stack scenarios", "Review 15 big stack bubble hands"],
+                            resources: ["Big stack bubble strategy"]
+                        },
+                        {
+                            id: "4.3",
+                            title: "Buổi 13: Short & Medium Stack Survival",
+                            duration: "90 phút",
+                            objectives: ["Survival mode - when to go ultra-tight", "Pick your spots - high equity only", "Reading big stack ranges", "Desperation shoves - timing"],
+                            keyPoints: ["Min-cash security vs bigger prizes", "Wait for better spots or take -EV gambles?", "Pay jump considerations"],
+                            exercises: ["Analyze 20 hands từ short/medium stack perspective", "Practice patience drills"],
+                            resources: ["Survival mode checklist"]
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    title: "MODULE 5: FINAL TABLE - VINH QUANG",
+                    icon: "🏆",
+                    color: "#ec4899",
+                    sessions: [
+                        {
+                            id: "5.1",
+                            title: "Buổi 14: Final Table Dynamics",
+                            duration: "120 phút",
+                            objectives: ["Pay jump analysis và ladder climbing", "9-handed to heads-up transitions", "Stack relativity tại FT", "Pressure points và exploitation"],
+                            keyPoints: ["Mỗi elimination = massive pay jump", "Position tương đối important hơn", "Mental preparation critical"],
+                            exercises: ["Study 5 final tables trên video", "Create pay jump scenarios"],
+                            resources: ["Final table strategy videos", "Pay jump calculator"]
+                        },
+                        {
+                            id: "5.2",
+                            title: "Buổi 15: Heads-Up Championship Play",
+                            duration: "90 phút",
+                            objectives: ["HU ranges - massive widening", "Aggression as default", "Button play exploitation", "BB defense và counter-attacks"],
+                            keyPoints: ["HU là hoàn toàn different game", "Position = everything", "Fearlessness required"],
+                            exercises: ["Practice HU với friends (100+ hands)", "Review HU footage từ major tournaments"],
+                            resources: ["HU training software", "Range charts"]
+                        },
+                        {
+                            id: "5.3",
+                            title: "Buổi 16: Deal Making & ICM Deals",
+                            duration: "60 phút",
+                            objectives: ["Hiểu deal structures (chip chop, ICM chop)", "Negotiation strategies", "When to deal, when to play", "Playing with money secure"],
+                            keyPoints: ["Variance reduction vs EV maximization", "Negotiation là skill", "Personal bankroll considerations"],
+                            exercises: ["Calculate ICM chop cho 3 scenarios", "Practice negotiation scripts"],
+                            resources: ["Deal calculator", "Negotiation guide"]
+                        }
+                    ]
+                },
+                {
+                    id: 6,
+                    title: "MODULE 6: TÂM LÝ & MENTAL GAME",
+                    icon: "💡",
+                    color: "#06b6d4",
+                    sessions: [
+                        {
+                            id: "6.1",
+                            title: "Buổi 17: Tilt Control - Làm chủ cảm xúc",
+                            duration: "90 phút",
+                            objectives: ["Nhận diện trigger patterns của bản thân", "Prevention techniques", "In-session tilt management", "Recovery strategies"],
+                            keyPoints: ["Tilt = EV leak lớn nhất", "Awareness là bước đầu tiên", "Have an exit strategy"],
+                            exercises: ["Journal 30 ngày - emotional tracking", "Create personal tilt protocol"],
+                            resources: ["Tilt journal template", "Mental Game of Poker excerpts"]
+                        },
+                        {
+                            id: "6.2",
+                            title: "Buổi 18: Focus & Concentration",
+                            duration: "75 phút",
+                            objectives: ["8-hour concentration techniques", "Break management", "Nutrition và hydration", "Environment optimization"],
+                            keyPoints: ["Physical preparation = mental performance", "Routine is power", "Eliminate distractions ruthlessly"],
+                            exercises: ["Create tournament day routine", "Practice focus exercises daily (10 mins)"],
+                            resources: ["Focus training app", "Nutrition guide"]
+                        },
+                        {
+                            id: "6.3",
+                            title: "Buổi 19: Confidence & Fear Management",
+                            duration: "90 phút",
+                            objectives: ["Building unshakeable confidence", "Fear of busting - overcoming", "Playing your A-game under pressure", "Visualization techniques"],
+                            keyPoints: ["Confidence đến từ preparation", "Fear là natural, manage it", "Process over results"],
+                            exercises: ["Daily visualization (15 mins)", "Write confidence affirmations"],
+                            resources: ["Sports psychology resources", "Visualization scripts"]
+                        },
+                        {
+                            id: "6.4",
+                            title: "Buổi 20: Reads & Physical Tells",
+                            duration: "90 phút",
+                            objectives: ["Baseline behavior reading", "Stress indicators", "Timing tells", "Bet sizing tells"],
+                            keyPoints: ["Online tells = timing + sizing patterns", "Live tells = physical + verbal", "Context is everything"],
+                            exercises: ["Watch 10 hours live poker - note tells", "Practice false tells"],
+                            resources: ["Mike Caro's Book of Tells summary"]
+                        }
+                    ]
+                },
+                {
+                    id: 7,
+                    title: "MODULE 7: KHAI THÁC ĐỐI THỦ CHUYÊN SÂU",
+                    icon: "👥",
+                    color: "#8b5cf6",
+                    sessions: [
+                        {
+                            id: "7.1",
+                            title: "Buổi 21: Player Profiling Deep Dive",
+                            duration: "120 phút",
+                            objectives: ["8 player archetypes chi tiết", "Quick identification techniques", "Adjustment strategies for each", "Population tendencies"],
+                            keyPoints: ["Most players are predictable", "Look for patterns, not hands", "Exploit relentlessly until adjusted"],
+                            exercises: ["Create detailed profiles cho 30 players", "Test identification trong live games"],
+                            resources: ["Profiling matrix", "Statistics interpretation guide"]
+                        },
+                        {
+                            id: "7.2",
+                            title: "Buổi 22: HUD Mastery & Statistics",
+                            duration: "90 phút",
+                            objectives: ["Essential stats và thresholds", "Position-specific stats", "Building effective HUD layouts", "Stats trong MTT context"],
+                            keyPoints: ["VPIP/PFR/3-bet/Fold to 3-bet basics", "Postflop aggression stats", "Sample size requirements"],
+                            exercises: ["Build custom HUD layout", "Analyze 50 opponents stats từ database"],
+                            resources: ["HUD setup guide", "Stats interpretation"]
+                        },
+                        {
+                            id: "7.3",
+                            title: "Buổi 23: Live Tells & Table Talk",
+                            duration: "90 phút",
+                            objectives: ["Reading body language", "Speech patterns analysis", "Chip handling tells", "Using table talk strategically"],
+                            keyPoints: ["Strong = weak, weak = strong (usually)", "Look for involuntary responses", "Information extraction through conversation"],
+                            exercises: ["Practice reading in live games (50 hands)", "Record notes on tells observed"],
+                            resources: ["Live tells checklist"]
+                        },
+                        {
+                            id: "7.4",
+                            title: "Buổi 24: Metagame & Table Image",
+                            duration: "75 phút",
+                            objectives: ["Managing your own image", "Image exploitation by opponents", "Metagame wars", "History-based adjustments"],
+                            keyPoints: ["Bạn có image - manage it", "Use image to deceive", "Multi-table metagame considerations"],
+                            exercises: ["Analyze your own database for tendencies", "Create image management plan"],
+                            resources: ["Metagame strategy guide"]
+                        }
+                    ]
+                },
+                {
+                    id: 8,
+                    title: "MODULE 8: ADVANCED CONCEPTS & GTO",
+                    icon: "📊",
+                    color: "#10b981",
+                    sessions: [
+                        {
+                            id: "8.1",
+                            title: "Buổi 25: GTO Fundamentals for MTT",
+                            duration: "120 phút",
+                            objectives: ["GTO vs Exploitative - when to use what", "Balanced ranges concept", "MDF (Minimum Defense Frequency)", "Polarization strategies"],
+                            keyPoints: ["GTO = unexploitable baseline", "Deviate với purpose", "Balance quan trọng vs regs"],
+                            exercises: ["Study GTO solutions cho 20 common spots", "Practice identifying deviation opportunities"],
+                            resources: ["GTO Wizard", "Simple Poker", "MonkerSolver"]
+                        },
+                        {
+                            id: "8.2",
+                            title: "Buổi 26: Range Construction",
+                            duration: "90 phút",
+                            objectives: ["Building balanced opening ranges", "3-bet/4-bet range construction", "Calling ranges optimization", "Range vs range thinking"],
+                            keyPoints: ["Think in ranges, not hands", "Equity distribution across range", "Board texture và range interaction"],
+                            exercises: ["Create complete preflop range charts", "Practice range assignment drills"],
+                            resources: ["Range construction tool", "Preflop charts"]
+                        },
+                        {
+                            id: "8.3",
+                            title: "Buổi 27: Multi-way Pot Strategy",
+                            duration: "90 phút",
+                            objectives: ["Adjustments cho 3+ way pots", "Value betting in multiway", "Bluffing restrictions", "Position amplification"],
+                            keyPoints: ["Bluffs giảm giá trị multiway", "Value range tightens", "Position even more critical"],
+                            exercises: ["Analyze 30 multiway hands", "Create multiway strategy adjustments"],
+                            resources: ["Multiway pot strategy"]
+                        },
+                        {
+                            id: "8.4",
+                            title: "Buổi 28: Solver Work & Study Methods",
+                            duration: "90 phút",
+                            objectives: ["Efficient solver usage", "Nodal analysis", "Pattern recognition từ solutions", "Applying solver insights in-game"],
+                            keyPoints: ["Solver = learning tool, not oracle", "Focus on frequencies, not exact numbers", "Internalize patterns"],
+                            exercises: ["Run 50 solver simulations", "Create study templates"],
+                            resources: ["Solver workflow guide"]
+                        }
+                    ]
+                },
+                {
+                    id: 9,
+                    title: "MODULE 9: PRACTICE & REVIEW",
+                    icon: "⚡",
+                    color: "#f97316",
+                    sessions: [
+                        {
+                            id: "9.1",
+                            title: "Buổi 29: Hand History Review Methodology",
+                            duration: "120 phút",
+                            objectives: ["Effective HH review process", "Identifying leaks systematically", "Using database filters", "Group study methods"],
+                            keyPoints: ["Focus on decision quality, not results", "Review losing AND winning hands", "Track patterns over time"],
+                            exercises: ["Review 100 hands từ recent sessions", "Create leak spreadsheet"],
+                            resources: ["HH review template", "Database filter presets"]
+                        },
+                        {
+                            id: "9.2",
+                            title: "Buổi 30: Practice Session - Early/Mid Stage",
+                            duration: "180 phút",
+                            objectives: ["Áp dụng concepts từ Modules 2-3", "Real-time decision making", "Note-taking practice", "Instant replay analysis"],
+                            keyPoints: ["Apply concepts consciously", "Take notes for later review", "Focus on process"],
+                            exercises: ["Play 2-3 tournaments với notes", "Review immediately sau session"],
+                            resources: ["Session log template"]
+                        },
+                        {
+                            id: "9.3",
+                            title: "Buổi 31: Practice Session - Bubble/Final Table",
+                            duration: "180 phút",
+                            objectives: ["ICM decision making practice", "High pressure situation handling", "Mental game under stress", "Final table simulation"],
+                            keyPoints: ["Simulate high pressure", "Focus on ICM considerations", "Track mental state"],
+                            exercises: ["Sit-n-go grinding cho ICM practice", "Final table simulation với friends"],
+                            resources: ["SNG strategy adjustments"]
+                        },
+                        {
+                            id: "9.4",
+                            title: "Buổi 32: Comprehensive Review & Certification",
+                            duration: "120 phút",
+                            objectives: ["Full course review", "Skill assessment", "Personalized improvement plan", "Next steps planning"],
+                            keyPoints: ["Consolidate learning", "Identify remaining gaps", "Create ongoing study plan"],
+                            exercises: ["Complete skill assessment quiz", "Write personal development plan"],
+                            resources: ["Assessment materials", "Ongoing study guide"]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let progress = {};
+        let notes = {};
+
+        function init() {
+            loadData();
+            renderCourse();
+            updateProgress();
+            renderAllNotes();
+        }
+
+        function loadData() {
+            try {
+                const savedProgress = localStorage.getItem('poker-progress');
+                const savedNotes = localStorage.getItem('poker-notes');
+                if (savedProgress) progress = JSON.parse(savedProgress);
+                if (savedNotes) notes = JSON.parse(savedNotes);
+            } catch(e) {
+                console.log('Error loading data');
+            }
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('poker-progress', JSON.stringify(progress));
+                localStorage.setItem('poker-notes', JSON.stringify(notes));
+            } catch(e) {
+                console.log('Error saving data');
+            }
+        }
+
+        function renderCourse() {
+            const container = document.getElementById('courseContent');
+            container.innerHTML = courseData.modules.map(module => {
+                const completed = module.sessions.filter(s => progress[s.id]).length;
+                const total = module.sessions.length;
+                const percent = (completed / total) * 100;
+                
+                return `
+                    <div class="module" id="module-${module.id}">
+                        <div class="module-header" onclick="toggleModule(${module.id})">
+                            <div class="module-icon" style="background: ${module.color}">${module.icon}</div>
+                            <div class="module-info">
+                                <div class="module-title">${module.title}</div>
+                                <div class="module-progress">
+                                    <div class="module-progress-bar">
+                                        <div class="module-progress-fill" style="width: ${percent}%; background: ${module.color}"></div>
+                                    </div>
+                                    <span class="module-progress-text">${completed}/${total}</span>
+                                    ${completed === total ? '<span class="completed-badge">✓</span>' : ''}
+                                </div>
+                            </div>
+                            <span class="module-arrow">›</span>
+                        </div>
+                        <div class="sessions">
+                            ${module.sessions.map(session => renderSession(session)).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSession(session) {
+            const isCompleted = progress[session.id];
+            const sessionNotes = notes[session.id] || [];
+            
+            return `
+                <div class="session" id="session-${session.id}">
+                    <div class="session-check ${isCompleted ? 'completed' : ''}" onclick="toggleSession('${session.id}')">
+                        ${isCompleted ? '✓' : ''}
+                    </div>
+                    <div class="session-content">
+                        <div class="session-header" onclick="toggleSessionExpand('${session.id}')">
+                            <span class="session-title ${isCompleted ? 'completed' : ''}">${session.title}</span>
+                            <span class="session-duration">⏱ ${session.duration}</span>
+                        </div>
+                        <div class="session-details" id="details-${session.id}">
+                            <div class="detail-section">
+                                <div class="detail-title objectives">🎯 Mục tiêu</div>
+                                <ul class="detail-list">
+                                    ${session.objectives.map(o => `<li data-bullet="•">${o}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title keypoints">⭐ Key Points</div>
+                                <ul class="detail-list">
+                                    ${session.keyPoints.map(k => `<li data-bullet="★">${k}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title exercises">⚡ Bài tập</div>
+                                <ul class="detail-list">
+                                    ${session.exercises.map(e => `<li data-bullet="→">${e}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-title resources">📚 Tài liệu</div>
+                                <div class="resources-tags">
+                                    ${session.resources.map(r => `<span class="resource-tag">${r}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div class="notes-section">
+                                <div class="notes-title">📝 Ghi chú của bạn</div>
+                                <div id="notes-list-${session.id}">
+                                    ${sessionNotes.map((n, i) => `
+                                        <div class="note-item">
+                                            <div>
+                                                <div class="note-text">${n.text}</div>
+                                                <div class="note-date">${n.date}</div>
+                                            </div>
+                                            <span class="note-delete" onclick="deleteNote('${session.id}', ${i})">Xóa</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div id="note-input-${session.id}" style="display: none;">
+                                    <div class="note-input-wrap">
+                                        <input type="text" class="note-input" id="note-text-${session.id}" placeholder="Thêm ghi chú...">
+                                        <button class="note-save" onclick="saveNote('${session.id}')">Lưu</button>
+                                        <button class="note-cancel" onclick="hideNoteInput('${session.id}')">✕</button>
+                                    </div>
+                                </div>
+                                <button class="add-note-btn" id="add-note-btn-${session.id}" onclick="showNoteInput('${session.id}')">+ Thêm ghi chú</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleModule(moduleId) {
+            const module = document.getElementById(`module-${moduleId}`);
+            module.classList.toggle('expanded');
+        }
+
+        function toggleSession(sessionId) {
+            progress[sessionId] = !progress[sessionId];
+            saveData();
+            renderCourse();
+            updateProgress();
+        }
+
+        function toggleSessionExpand(sessionId) {
+            const session = document.getElementById(`session-${sessionId}`);
+            session.classList.toggle('expanded');
+        }
+
+        function updateProgress() {
+            const allSessions = courseData.modules.flatMap(m => m.sessions);
+            const completed = allSessions.filter(s => progress[s.id]).length;
+            const total = allSessions.length;
+            const percent = (completed / total) * 100;
+            
+            document.getElementById('totalProgress').textContent = `${completed}/${total} buổi`;
+            document.getElementById('totalProgressBar').style.width = `${percent}%`;
+            
+            // Find current session
+            let currentSession = null;
+            for (const module of courseData.modules) {
+                for (const session of module.sessions) {
+                    if (!progress[session.id]) {
+                        currentSession = session;
+                        break;
+                    }
+                }
+                if (currentSession) break;
+            }
+            
+            const card = document.getElementById('currentSessionCard');
+            if (currentSession) {
+                card.style.display = 'block';
+                document.getElementById('currentSessionTitle').textContent = currentSession.title;
+            } else {
+                card.style.display = 'none';
+            }
+            
+            // Update total notes count
+            const totalNotesCount = Object.values(notes).flat().length;
+            document.getElementById('totalNotes').textContent = totalNotesCount;
+        }
+
+        function showNoteInput(sessionId) {
+            document.getElementById(`note-input-${sessionId}`).style.display = 'block';
+            document.getElementById(`add-note-btn-${sessionId}`).style.display = 'none';
+            document.getElementById(`note-text-${sessionId}`).focus();
+        }
+
+        function hideNoteInput(sessionId) {
+            document.getElementById(`note-input-${sessionId}`).style.display = 'none';
+            document.getElementById(`add-note-btn-${sessionId}`).style.display = 'block';
+            document.getElementById(`note-text-${sessionId}`).value = '';
+        }
+
+        function saveNote(sessionId) {
+            const text = document.getElementById(`note-text-${sessionId}`).value.trim();
+            if (text) {
+                if (!notes[sessionId]) notes[sessionId] = [];
+                notes[sessionId].push({
+                    text: text,
+                    date: new Date().toLocaleDateString('vi-VN')
+                });
+                saveData();
+                renderCourse();
+                updateProgress();
+                renderAllNotes();
+            }
+            hideNoteInput(sessionId);
+        }
+
+        function deleteNote(sessionId, index) {
+            if (confirm('Xóa ghi chú này?')) {
+                notes[sessionId].splice(index, 1);
+                if (notes[sessionId].length === 0) delete notes[sessionId];
+                saveData();
+                renderCourse();
+                updateProgress();
+                renderAllNotes();
+            }
+        }
+
+        function showTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tab === 'course') {
+                document.getElementById('courseContent').classList.remove('hidden');
+                document.getElementById('allNotes').classList.remove('active');
+            } else {
+                document.getElementById('courseContent').classList.add('hidden');
+                document.getElementById('allNotes').classList.add('active');
+            }
+        }
+
+        function renderAllNotes() {
+            const container = document.getElementById('allNotes');
+            const allSessionsWithNotes = Object.entries(notes).filter(([_, n]) => n.length > 0);
+            
+            if (allSessionsWithNotes.length === 0) {
+                container.innerHTML = '<div class="empty-notes">Chưa có ghi chú nào.<br>Hãy thêm ghi chú khi học!</div>';
+                return;
+            }
+            
+            const allSessions = courseData.modules.flatMap(m => m.sessions);
+            
+            container.innerHTML = allSessionsWithNotes.map(([sessionId, sessionNotes]) => {
+                const session = allSessions.find(s => s.id === sessionId);
+                if (!session) return '';
+                
+                return `
+                    <div class="note-group">
+                        <div class="note-session-title">${session.title}</div>
+                        ${sessionNotes.map((n, i) => `
+                            <div class="note-item">
+                                <div>
+                                    <div class="note-text">${n.text}</div>
+                                    <div class="note-date">${n.date}</div>
+                                </div>
+                                <span class="note-delete" onclick="deleteNote('${sessionId}', ${i})">Xóa</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function resetProgress() {
+            if (confirm('Bạn có chắc muốn reset toàn bộ tiến độ và ghi chú?')) {
+                progress = {};
+                notes = {};
+                localStorage.removeItem('poker-progress');
+                localStorage.removeItem('poker-notes');
+                renderCourse();
+                updateProgress();
+                renderAllNotes();
+            }
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
